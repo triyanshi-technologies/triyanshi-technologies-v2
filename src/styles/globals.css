@@ -43,6 +43,10 @@
   --color-surface-2: #f2f2f2; /* nested light panels */
   --color-line: #e5e5e5; /* borders on light */
 
+  /* Third-party brand colours (logos/ratings only — not part of the UI palette) */
+  --color-linkedin: #0a66c2;
+  --color-star: #f4b400;
+
   /* Status */
   --color-danger: #dc2626;
   --color-danger-soft: #fff7f7;
@@ -50,8 +54,6 @@
 
   /* ---- Type scale (rem) --------------------------------------------- */
   --text-*: initial;
-  --text-2xs: 0.6875rem;
-  --text-2xs--line-height: 1.4;
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.5;
   --text-sm: 0.875rem;
@@ -64,6 +66,8 @@
   --text-xl--line-height: 1.4;
   --text-2xl: 1.5rem;
   --text-2xl--line-height: 1.3;
+  --text-3xl: 2.5rem;
+  --text-3xl--line-height: 1;
   /* Fluid headings */
   --text-heading-sm: clamp(1.25rem, 2vw, 1.5rem);
   --text-heading-sm--line-height: 1.3;
@@ -106,6 +110,17 @@
   --animate-float: float 4s ease-in-out infinite;
   --animate-pulse-soft: pulse-soft 3s infinite;
   --animate-slide-up: slide-up 0.8s var(--ease-out-expo) forwards;
+  --animate-float-slow: float 8s ease-in-out infinite;
+  --animate-float-reverse: float 6s ease-in-out infinite reverse;
+  --animate-orbit: orbit 16s linear infinite;
+  --animate-marquee: marquee 70s linear infinite;
+  --animate-marquee-reverse: marquee 70s linear infinite reverse;
+  --animate-card-in: card-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --animate-card-up: card-up 0.4s ease both;
+  --animate-steam: steam 1.8s linear infinite;
+  --animate-typing-1: typing-1 1.8s linear infinite;
+  --animate-typing-2: typing-2 1.8s linear infinite;
+  --animate-typing-3: typing-3 1.8s linear infinite;
 
   @keyframes float {
     50% {
@@ -120,6 +135,78 @@
     }
     50% {
       transform: scale(1.05);
+      opacity: 1;
+    }
+  }
+  @keyframes orbit {
+    to {
+      rotate: 360deg;
+    }
+  }
+  /* Tracks hold 2 identical copies, so shifting by half loops seamlessly. */
+  @keyframes marquee {
+    to {
+      translate: -50% 0;
+    }
+  }
+  @keyframes card-in {
+    from {
+      opacity: 0;
+      translate: 0 10px;
+    }
+  }
+  @keyframes card-up {
+    from {
+      opacity: 0;
+      translate: 0 16px;
+    }
+  }
+  @keyframes steam {
+    0% {
+      transform: translateY(0) scaleY(1);
+      opacity: 0.1;
+    }
+    40% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-6px) scaleY(1.2);
+      opacity: 0;
+    }
+  }
+  /* "…" typing dots: fade in one by one, hold together, then fade out. */
+  @keyframes typing-1 {
+    0%,
+    95%,
+    100% {
+      opacity: 0;
+    }
+    8%,
+    87% {
+      opacity: 1;
+    }
+  }
+  @keyframes typing-2 {
+    0%,
+    33%,
+    95%,
+    100% {
+      opacity: 0;
+    }
+    41%,
+    87% {
+      opacity: 1;
+    }
+  }
+  @keyframes typing-3 {
+    0%,
+    63%,
+    95%,
+    100% {
+      opacity: 0;
+    }
+    71%,
+    87% {
       opacity: 1;
     }
   }

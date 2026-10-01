@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   title: { default: `${site.name} | ${site.tagline}`, template: `%s | ${site.name}` },
   description: site.description,
   applicationName: site.name,
-  icons: { icon: [{ url: "/assets/favicon_v2.webp", type: "image/webp" }] },
   verification: { google: site.googleSiteVerification },
   formatDetection: { telephone: false },
 };

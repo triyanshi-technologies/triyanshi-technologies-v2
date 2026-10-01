@@ -126,3 +126,6 @@ dist
 next-env.d.ts
 
 .github
+
+# Generated responsive image variants (scripts/optimize-images.mjs)
+public/_img/

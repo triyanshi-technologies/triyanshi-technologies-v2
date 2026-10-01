@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { deviceSizes, imageSizes } from "./image-sizes.mjs";
 
 /**
  * Static export: `next build` writes plain HTML/CSS/JS to `out/`, which the
@@ -10,9 +11,15 @@ const nextConfig: NextConfig = {
   output: "export",
   // `/company/about-us` -> out/company/about-us.html (matches the existing URLs).
   trailingSlash: false,
-  // No image optimizer on a static host. Local assets are pre-optimised WebP;
-  // Sanity images are resized by Sanity's CDN (see components/ui/sanity-image).
-  images: { unoptimized: true },
+  // No image server on a static host: local images use pre-generated variants
+  // (scripts/optimize-images.mjs) and Sanity images use Sanity's CDN — both
+  // resolved by the custom loader.
+  images: {
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
+    deviceSizes,
+    imageSizes,
+  },
   reactStrictMode: true,
 };
 

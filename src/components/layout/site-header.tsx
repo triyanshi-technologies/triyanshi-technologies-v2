@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Container } from "@/components/ui/layout";
-import { cn } from "@/lib/cn";
+import { Container } from "@/components/ui/container";
+import { cx } from "@/lib/cx";
 import { site } from "@/lib/site";
 import { DesktopNav } from "./desktop-nav";
 import { MobileNav } from "./mobile-nav";
@@ -41,7 +41,7 @@ export function SiteHeader() {
   return (
     <>
       <header
-        className={cn(
+        className={cx(
           "fixed inset-x-0 top-0 z-1000 min-h-nav border-b border-white/10 py-4 backdrop-blur-[10px] transition-[background-color,box-shadow] duration-300",
           scrolled ? "bg-ink/98 shadow-md" : "bg-ink/95",
         )}
@@ -51,8 +51,8 @@ export function SiteHeader() {
             <Image
               src={site.logo}
               alt={site.name}
-              width={301}
-              height={81}
+              width={150}
+              height={40}
               loading="eager"
               fetchPriority="high"
               className="h-12 w-auto max-w-37.5 object-contain"
@@ -68,7 +68,7 @@ export function SiteHeader() {
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav"
             onClick={() => setMobileOpen((v) => !v)}
-            className={cn(
+            className={cx(
               "relative z-1201 ml-auto flex size-10 shrink-0 flex-col justify-center gap-1.25 rounded-md p-2 transition-colors hover:bg-white/10 lg:hidden",
               mobileOpen && "invisible opacity-0",
             )}

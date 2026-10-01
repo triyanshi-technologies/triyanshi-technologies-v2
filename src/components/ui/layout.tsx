@@ -1,10 +1,8 @@
 import type { ComponentProps, ElementType, ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { Container } from "./container";
 
-/** Centered 1280px content column with the standard 1rem gutter. */
-export function Container({ className, ...props }: ComponentProps<"div">) {
-  return <div className={cn("mx-auto w-full max-w-site px-4", className)} {...props} />;
-}
+export { Container };
 
 export type SectionTone = "white" | "light" | "dark" | "black";
 

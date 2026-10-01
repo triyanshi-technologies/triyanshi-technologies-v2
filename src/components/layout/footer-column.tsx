@@ -2,7 +2,7 @@
 
 import { useId, useState, type ReactNode } from "react";
 import { ChevronDownIcon } from "@/components/ui/icons";
-import { cn } from "@/lib/cn";
+import { cx } from "@/lib/cx";
 
 /**
  * Footer link column: an accordion below 768px, always open above.
@@ -25,7 +25,7 @@ export function FooterColumn({ title, children }: { title: string; children: Rea
         <span>{title}</span>
         <ChevronDownIcon
           size={12}
-          className={cn(
+          className={cx(
             "text-muted transition-[rotate,color] duration-250 md:hidden",
             open && "rotate-180 text-primary",
           )}
@@ -33,13 +33,13 @@ export function FooterColumn({ title, children }: { title: string; children: Rea
       </button>
       <div
         id={panelId}
-        className={cn(
+        className={cx(
           "grid overflow-hidden transition-[grid-template-rows] duration-300 md:flex md:overflow-visible",
           open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
         )}
       >
         <div
-          className={cn(
+          className={cx(
             "flex min-h-0 flex-col gap-3 md:visible",
             open ? "visible pb-5 md:pb-0" : "invisible",
           )}

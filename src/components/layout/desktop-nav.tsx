@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ButtonLink } from "@/components/ui/button";
 import { ArrowRightIcon, ChevronDownIcon } from "@/components/ui/icons";
 import { contactLink, homeLink, primaryNav, type NavMenu } from "@/content/navigation";
-import { cn } from "@/lib/cn";
+import { cx } from "@/lib/cx";
 import { isCurrent, isMenuActive } from "./nav-utils";
 
 const CLOSE_DELAY_MS = 90;
@@ -85,7 +85,7 @@ export function DesktopNav() {
       <Link
         href={homeLink.href}
         aria-current={pathname === "/" ? "page" : undefined}
-        className={cn(navLinkClass, pathname === "/" && "text-primary")}
+        className={cx(navLinkClass, pathname === "/" && "text-primary")}
       >
         {homeLink.label}
       </Link>
@@ -103,7 +103,7 @@ export function DesktopNav() {
         />
       ))}
 
-      <ButtonLink href={contactLink.href} size="sm" className="ml-1 px-3.5 text-xs xl:px-5 xl:text-sm">
+      <ButtonLink href={contactLink.href} size="sm" className="ml-1">
         {contactLink.label}
       </ButtonLink>
     </nav>
@@ -168,12 +168,12 @@ function NavDropdown({ menu, pathname, isOpen, onOpen, onClose, onCloseSoon, ope
         aria-expanded={isOpen}
         aria-controls={panelId}
         onClick={handleToggleClick}
-        className={cn(navLinkClass, active && "text-primary", isOpen && "bg-white/8 text-white")}
+        className={cx(navLinkClass, active && "text-primary", isOpen && "bg-white/8 text-white")}
       >
         {menu.label}
         <ChevronDownIcon
           size={12}
-          className={cn("shrink-0 transition-transform duration-250", isOpen && "rotate-180")}
+          className={cx("shrink-0 transition-transform duration-250", isOpen && "rotate-180")}
         />
       </button>
 
@@ -182,7 +182,7 @@ function NavDropdown({ menu, pathname, isOpen, onOpen, onClose, onCloseSoon, ope
         id={panelId}
         inert={!isOpen}
         style={{ "--shift": `${shift}px` } as React.CSSProperties}
-        className={cn(
+        className={cx(
           "absolute top-[calc(100%+10px)] left-0 z-1100 max-h-[calc(100vh-6rem)] w-max max-w-[min(44rem,calc(100vw-1.5rem))] overflow-hidden rounded-lg border border-white/10 bg-ink-raised shadow-dropdown transition-[opacity,visibility,translate] duration-220",
           isOpen
             ? "visible translate-x-(--shift) translate-y-0 opacity-100"
@@ -191,7 +191,7 @@ function NavDropdown({ menu, pathname, isOpen, onOpen, onClose, onCloseSoon, ope
       >
         <div className="grid auto-cols-max grid-flow-col">
           {menu.columns.map((column, i) => (
-            <div key={i} className={cn("px-2 pt-2 pb-2.5", i > 0 && "border-l border-white/7")}>
+            <div key={i} className={cx("px-2 pt-2 pb-2.5", i > 0 && "border-l border-white/7")}>
               {column.heading && <ColumnHeading heading={column.heading} />}
               <ul>
                 {column.links.map((link) => (
@@ -220,12 +220,12 @@ function NavDropdown({ menu, pathname, isOpen, onOpen, onClose, onCloseSoon, ope
 }
 
 const headingClass =
-  "mb-2.5 block border-b border-primary/20 pb-2 text-2xs font-bold tracking-widest text-primary uppercase";
+  "mb-2.5 block border-b border-primary/20 pb-2 text-xs font-bold tracking-widest text-primary uppercase";
 
 function ColumnHeading({ heading }: { heading: NonNullable<NavMenu["columns"][number]["heading"]> }) {
   if (typeof heading === "string") return <p className={headingClass}>{heading}</p>;
   return (
-    <Link href={heading.href} className={cn(headingClass, "transition-opacity hover:opacity-75")}>
+    <Link href={heading.href} className={cx(headingClass, "transition-opacity hover:opacity-75")}>
       {heading.label}
     </Link>
   );

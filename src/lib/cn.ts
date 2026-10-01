@@ -8,12 +8,16 @@ import { extendTailwindMerge } from "tailwind-merge";
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
-      text: ["2xs", "heading-sm", "heading-md", "heading-lg", "heading-xl", "display"],
+      text: ["heading-sm", "heading-md", "heading-lg", "heading-xl", "display"],
     },
   },
 });
 
-/** Join class names conditionally and resolve Tailwind conflicts (last wins). */
+/**
+ * Join class names and resolve Tailwind conflicts (last wins), so callers can
+ * override a component's defaults. Use in SERVER components only — importing
+ * it into a client component ships tailwind-merge (~17 KB gz) to the browser.
+ */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

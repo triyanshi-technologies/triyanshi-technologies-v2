@@ -31,8 +31,8 @@ export function SiteFooter() {
               <Image
                 src={site.logo}
                 alt="Triyanshi Logo"
-                width={301}
-                height={81}
+                width={150}
+                height={40}
                 className="h-12 w-auto max-w-37.5 object-contain"
               />
             </Link>

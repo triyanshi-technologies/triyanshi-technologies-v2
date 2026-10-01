@@ -7,7 +7,7 @@ import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { ButtonLink } from "@/components/ui/button";
 import { ArrowRightIcon, ChevronDownIcon, CloseIcon } from "@/components/ui/icons";
 import { contactLink, homeLink, primaryNav, type NavLink } from "@/content/navigation";
-import { cn } from "@/lib/cn";
+import { cx } from "@/lib/cx";
 import { site } from "@/lib/site";
 import { isCurrent } from "./nav-utils";
 
@@ -42,7 +42,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
       <div
         aria-hidden="true"
         onClick={() => onClose(true)}
-        className={cn(
+        className={cx(
           "fixed inset-0 z-1300 bg-black/60 transition-opacity duration-350",
           open ? "opacity-100" : "pointer-events-none opacity-0",
         )}
@@ -54,7 +54,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
         aria-label="Mobile navigation"
         inert={!open}
         onClick={(e) => (e.target as Element).closest("a") && onClose(false)}
-        className={cn(
+        className={cx(
           "fixed top-0 left-0 z-1400 flex h-dvh w-[min(85vw,380px)] flex-col overflow-hidden bg-white transition-[translate,visibility] duration-350 ease-in-out",
           open ? "visible translate-x-0 shadow-drawer" : "invisible -translate-x-full",
         )}
@@ -64,8 +64,8 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
             <Image
               src={site.logo}
               alt={site.name}
-              width={301}
-              height={81}
+              width={150}
+              height={40}
               className="h-12 w-auto max-w-37.5 object-contain"
             />
           </Link>
@@ -144,7 +144,7 @@ function Accordion({ label, children, buttonClassName, panelClassName, chevronSi
         aria-expanded={expanded}
         aria-controls={panelId}
         onClick={() => setExpanded((v) => !v)}
-        className={cn(
+        className={cx(
           "flex w-full items-center justify-between text-left transition-colors",
           buttonClassName,
         )}
@@ -152,7 +152,7 @@ function Accordion({ label, children, buttonClassName, panelClassName, chevronSi
         {label}
         <ChevronDownIcon
           size={chevronSize}
-          className={cn(
+          className={cx(
             "shrink-0 text-muted transition-[rotate,color] duration-250",
             expanded && "rotate-180 text-primary",
           )}
@@ -161,12 +161,12 @@ function Accordion({ label, children, buttonClassName, panelClassName, chevronSi
       <div
         id={panelId}
         inert={!expanded}
-        className={cn(
+        className={cx(
           "grid transition-[grid-template-rows] duration-300",
           expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
         )}
       >
-        <div className={cn("min-h-0 overflow-hidden", panelClassName)}>{children}</div>
+        <div className={cx("min-h-0 overflow-hidden", panelClassName)}>{children}</div>
       </div>
     </>
   );
