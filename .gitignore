@@ -124,3 +124,5 @@ dist
 
 # Next.js generated types
 next-env.d.ts
+
+.github
