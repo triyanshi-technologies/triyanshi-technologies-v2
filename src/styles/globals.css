@@ -47,6 +47,11 @@
   --color-linkedin: #0a66c2;
   --color-star: #f4b400;
 
+  /* Browser-window chrome dots (portfolio gallery mockups) */
+  --color-window-close: #ff5f56;
+  --color-window-minimize: #ffbd2e;
+  --color-window-zoom: #27c93f;
+
   /* Status */
   --color-danger: #dc2626;
   --color-danger-soft: #fff7f7;
@@ -102,6 +107,8 @@
   /* ---- Shadows (Tailwind defaults sm–2xl are kept) ------------------ */
   --shadow-dropdown: 0 16px 48px rgb(0 0 0 / 0.55), 0 4px 12px rgb(0 0 0 / 0.3);
   --shadow-drawer: 4px 0 48px rgb(0 0 0 / 0.3);
+  /* Shared hover shadow for cards (see lib/hover.ts). */
+  --shadow-card-hover: 0 12px 34px rgb(0 0 0 / 0.08);
 
   /* ---- Motion ------------------------------------------------------- */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -118,9 +125,26 @@
   --animate-card-in: card-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --animate-card-up: card-up 0.4s ease both;
   --animate-steam: steam 1.8s linear infinite;
+  --animate-orbit-slow: orbit 36s linear infinite;
+  --animate-orbit-counter: orbit-counter 36s linear infinite;
   --animate-typing-1: typing-1 1.8s linear infinite;
   --animate-typing-2: typing-2 1.8s linear infinite;
   --animate-typing-3: typing-3 1.8s linear infinite;
+  /* Animate-on-scroll (components/motion/reveal.tsx). Animations, not
+     transitions, so their delays never slow down hover effects. */
+  --animate-reveal-up: reveal-up 0.8s ease backwards;
+  --animate-reveal-down: reveal-down 0.8s ease backwards;
+  --animate-reveal-from-left: reveal-from-left 0.8s ease backwards;
+  --animate-reveal-from-right: reveal-from-right 0.8s ease backwards;
+  --animate-reveal-fade: reveal-fade 0.8s ease backwards;
+  --animate-reveal-zoom: reveal-zoom 0.8s ease backwards;
+  --animate-reveal-item: reveal-item 0.5s ease backwards;
+  /* Wizard steps slide in from the right. */
+  --animate-step-in: step-in 0.32s ease;
+  /* Form success seal: pulse in, then draw the ring and the tick. */
+  --animate-seal-pulse: seal-pulse 0.7s ease-out 0.1s both;
+  --animate-draw: draw 0.48s ease-out forwards;
+  --animate-draw-late: draw 0.32s ease-out 0.38s forwards;
 
   @keyframes float {
     50% {
@@ -147,6 +171,21 @@
   @keyframes marquee {
     to {
       translate: -50% 0;
+    }
+  }
+  /* Counter-rotates orbit nodes so their labels stay upright. */
+  @keyframes orbit-counter {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(-360deg);
+    }
+  }
+  /* Gallery tracks hold their cards twice, so shifting by half loops seamlessly. */
+  @keyframes gallery-up {
+    to {
+      translate: 0 -50%;
     }
   }
   @keyframes card-in {
@@ -208,6 +247,64 @@
     71%,
     87% {
       opacity: 1;
+    }
+  }
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      translate: 0 1.875rem;
+    }
+  }
+  @keyframes reveal-down {
+    from {
+      opacity: 0;
+      translate: 0 -1.875rem;
+    }
+  }
+  @keyframes reveal-from-left {
+    from {
+      opacity: 0;
+      translate: -1.875rem 0;
+    }
+  }
+  @keyframes reveal-from-right {
+    from {
+      opacity: 0;
+      translate: 1.875rem 0;
+    }
+  }
+  @keyframes reveal-fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes reveal-zoom {
+    from {
+      opacity: 0;
+      scale: 0.95;
+    }
+  }
+  @keyframes reveal-item {
+    from {
+      opacity: 0;
+      translate: 0 1.25rem;
+    }
+  }
+  @keyframes step-in {
+    from {
+      opacity: 0;
+      translate: 10px 0;
+    }
+  }
+  @keyframes seal-pulse {
+    from {
+      opacity: 0;
+      scale: 0.6;
+    }
+  }
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
     }
   }
   @keyframes slide-up {

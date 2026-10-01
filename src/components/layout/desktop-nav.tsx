@@ -17,7 +17,7 @@ const hoverQuery = "(hover: hover) and (pointer: fine)";
 const canHover = () => matchMedia(desktopQuery).matches && matchMedia(hoverQuery).matches;
 
 const navLinkClass =
-  "inline-flex items-center gap-1.25 rounded-md px-2 py-1.75 text-xs leading-[1.4] font-medium whitespace-nowrap text-white/82 transition-colors duration-200 hover:bg-white/8 hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary xl:px-2.75 xl:py-2 xl:text-sm";
+  "inline-flex items-center gap-1.25 rounded-md px-2 py-1.75 text-xs leading-[1.4] font-medium whitespace-nowrap transition-colors duration-200 hover:bg-white/8 hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary xl:px-2.75 xl:py-2 xl:text-sm";
 
 /** Desktop primary navigation (≥1024px): links, hover/click dropdowns and the CTA. */
 export function DesktopNav() {
@@ -85,7 +85,7 @@ export function DesktopNav() {
       <Link
         href={homeLink.href}
         aria-current={pathname === "/" ? "page" : undefined}
-        className={cx(navLinkClass, pathname === "/" && "text-primary")}
+        className={cx(navLinkClass, pathname === "/" ? "text-primary" : "text-white/82")}
       >
         {homeLink.label}
       </Link>
@@ -168,7 +168,10 @@ function NavDropdown({ menu, pathname, isOpen, onOpen, onClose, onCloseSoon, ope
         aria-expanded={isOpen}
         aria-controls={panelId}
         onClick={handleToggleClick}
-        className={cx(navLinkClass, active && "text-primary", isOpen && "bg-white/8 text-white")}
+        className={cx(
+          navLinkClass,
+          isOpen ? "bg-white/8 text-white" : active ? "text-primary" : "text-white/82",
+        )}
       >
         {menu.label}
         <ChevronDownIcon

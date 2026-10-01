@@ -11,14 +11,15 @@ import { cx } from "@/lib/cx";
  *
  *  primary  — orange tint, fills orange          (any background)
  *  outline  — white tint, fills white            (dark backgrounds)
+ *  outlineDark — dark tint, fills black          (light backgrounds)
  *  light    — solid white, text turns orange      (dark backgrounds)
  *  solid    — filled orange gradient, dark text    (high-emphasis CTA)
  */
-export type ButtonVariant = "primary" | "outline" | "light" | "solid";
+export type ButtonVariant = "primary" | "outline" | "outlineDark" | "light" | "solid";
 export type ButtonSize = "sm" | "md" | "lg";
 
 const base =
-  "relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg text-center font-semibold whitespace-nowrap transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-85 aria-busy:pointer-events-none aria-busy:opacity-85";
+  "group/link relative isolate inline-flex items-center justify-center overflow-hidden text-center font-semibold whitespace-nowrap transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-85 aria-busy:pointer-events-none aria-busy:opacity-85";
 
 /* The ::before layer is the sweeping fill. */
 const sweep =
@@ -35,14 +36,19 @@ const variants: Record<ButtonVariant, string> = {
     "border border-white/50 bg-white/6 text-white hover:text-ink focus-visible:text-ink",
     "before:bg-linear-135 before:from-white before:via-surface-2 before:to-line",
   ),
+  outlineDark: cx(
+    sweep,
+    "border border-ink/25 bg-ink/5 text-ink hover:text-white focus-visible:text-white",
+    "before:bg-linear-135 before:from-ink-raised before:via-ink before:to-black",
+  ),
   light: "border-2 border-transparent bg-white text-ink hover:bg-surface hover:text-primary",
   solid:
     "border border-primary/82 bg-linear-135 from-accent via-primary via-58% to-primary-hover text-ink shadow-[0_16px_28px_rgb(255_153_51/0.22),inset_0_1px_0_rgb(255_255_255/0.24)] hover:brightness-105",
 };
 
 const sizes: Record<ButtonSize, string> = {
-  sm: "h-12 px-3.5 text-xs xl:px-5 xl:text-sm", // navbar CTA (tightens on small desktops)
-  md: "h-12 px-8 text-base",
+  sm: "h-12 gap-2 rounded-lg px-3.5 text-xs xl:px-5 xl:text-sm", // navbar CTA (tightens on small desktops)
+  md: "h-12 gap-2 rounded-lg px-8 text-base",
   lg: "h-14 gap-3 rounded-xl px-5 text-base", // icon + label + arrow CTAs
 };
 

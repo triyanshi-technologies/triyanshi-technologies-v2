@@ -12,7 +12,7 @@ export type Platform = (typeof PLATFORMS)[number];
 /** Membership of a project in a listing (portfolio page or service examples), with optional order. */
 export type Placement = { key: string; position?: number };
 
-/** Raw project as stored (legacy data file; Sanity document from stage 3). */
+/** Legacy seed record (scripts/seed/legacy-projects.ts), imported into Sanity. */
 export type ProjectRecord = {
   slug: string;
   name: string;
@@ -22,7 +22,7 @@ export type ProjectRecord = {
   position: number;
   tags: string[];
   features: string[];
-  /** Screenshot path. Missing -> placeholder image. */
+  /** Screenshot file name in scripts/seed/images. Missing -> placeholder image. */
   image?: string;
   pages: Placement[];
   services?: Placement[];
@@ -33,14 +33,26 @@ export type Project = {
   slug: string;
   name: string;
   category: string;
+  /** Empty for sample (placeholder) projects. */
   domain: string;
-  /** Absolute URL of the live site. */
+  /** Absolute URL of the live site; empty for sample projects. */
   url: string;
   platform: Platform;
   tags: string[];
   features: string[];
   description: string;
-  image: { src: string; alt: string };
+  image: ProjectImage;
+};
+
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  /** Tiny base64 preview shown while the image loads. */
+  blurDataURL?: string;
+  /** CSS object-position from the editor's hotspot, e.g. "50% 30%". */
+  position?: string;
 };
 
 export type ShowcaseGroup = {

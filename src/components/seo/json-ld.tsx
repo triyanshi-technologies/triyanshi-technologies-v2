@@ -71,3 +71,14 @@ export const organizationSchema = {
     ],
   },
 };
+
+/** WebSite schema (homepage): ties the site name to the organization for search results. */
+export const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${site.url}/#website`,
+  name: site.name,
+  url: `${site.url}/`,
+  publisher: { "@id": `${site.url}/#organization` },
+  inLanguage: "en",
+};

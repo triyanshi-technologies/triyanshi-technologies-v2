@@ -1,5 +1,6 @@
 import type { ComponentProps, ElementType, ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { cardHover } from "@/lib/hover";
 import { Container } from "./container";
 
 export { Container };
@@ -17,6 +18,7 @@ type SectionProps = ComponentProps<"section"> & {
   tone?: SectionTone;
   /** Wrap children in a <Container>. Default true. */
   contained?: boolean;
+  /** Extra classes for the inner Container. Joined, not merged: don't override its width/padding. */
   containerClassName?: string;
 };
 
@@ -101,7 +103,7 @@ export function Card({ interactive = false, className, ...props }: CardProps) {
     <div
       className={cn(
         "flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white shadow-md",
-        interactive && "transition duration-300 hover:-translate-y-1.25 hover:shadow-xl",
+        interactive && cardHover,
         className,
       )}
       {...props}

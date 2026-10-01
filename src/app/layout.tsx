@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { RevealObserver } from "@/components/motion/reveal-observer";
+import { RevealScript } from "@/components/motion/reveal-script";
 import { Analytics } from "@/components/seo/analytics";
 import { JsonLd, organizationSchema } from "@/components/seo/json-ld";
 import { site } from "@/lib/site";
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         {/* Without JS nothing would ever be revealed — show it all. */}
         <noscript>
-          <style>{`[data-reveal],[data-reveal] *{opacity:1!important;translate:none!important;scale:none!important}`}</style>
+          <style>{`[data-reveal],[data-reveal-item]{opacity:1!important}`}</style>
         </noscript>
       </head>
       <body>
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
-        <RevealObserver />
+        <RevealScript />
         <JsonLd data={organizationSchema} />
         <Analytics />
       </body>

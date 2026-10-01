@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Eyebrow, Highlight, Section } from "@/components/ui/layout";
+import { cardHover } from "@/lib/hover";
 
 const icon = {
   viewBox: "0 0 24 24",
@@ -142,7 +143,7 @@ const ease = "ease-[cubic-bezier(0.22,1,0.36,1)]";
 function FounderCard({ founder }: { founder: Founder }) {
   return (
     <article
-      className={`group relative flex h-full flex-col gap-4.5 overflow-hidden rounded-3xl border border-line bg-surface p-5.5 pb-5 shadow-[0_14px_36px_rgb(0_0_0/0.08)] transition-[border-color,box-shadow] duration-450 ${ease} hover:border-primary/28 hover:shadow-[0_18px_42px_rgb(0_0_0/0.1),0_0_0_1px_rgb(255_153_51/0.08)] lg:gap-6 lg:p-7 lg:pb-6.5`}
+      className={`group relative flex h-full flex-col gap-4.5 overflow-hidden rounded-3xl border border-line bg-surface p-5.5 pb-5 shadow-[0_14px_36px_rgb(0_0_0/0.08)] ${cardHover} lg:gap-6 lg:p-7 lg:pb-6.5`}
     >
       <div
         aria-hidden="true"

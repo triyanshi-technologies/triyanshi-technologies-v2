@@ -9,6 +9,7 @@ import {
   PhoneIcon,
 } from "@/components/ui/icons";
 import { footerNav } from "@/content/navigation";
+import { iconButtonHover } from "@/lib/hover";
 import { site } from "@/lib/site";
 import { FooterColumn } from "./footer-column";
 
@@ -47,7 +48,7 @@ export function SiteFooter() {
                   aria-label={label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition duration-300 hover:-translate-y-0.75 hover:bg-primary"
+                  className={`flex size-10 items-center justify-center rounded-full bg-white/10 text-white ${iconButtonHover}`}
                 >
                   <Icon />
                 </a>

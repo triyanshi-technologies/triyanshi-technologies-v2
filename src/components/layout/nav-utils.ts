@@ -6,8 +6,10 @@ export function normalizePath(pathname: string) {
   return path === "" ? "/" : path;
 }
 
+/** A menu is active on any page under its prefixes, including the hub itself ("/tools" for "/tools/"). */
 export function isMenuActive(menu: NavMenu, pathname: string) {
-  return menu.match.some((prefix) => pathname.startsWith(prefix));
+  const path = normalizePath(pathname);
+  return menu.match.some((prefix) => path.startsWith(prefix) || path === normalizePath(prefix));
 }
 
 export function isCurrent(href: string, pathname: string) {

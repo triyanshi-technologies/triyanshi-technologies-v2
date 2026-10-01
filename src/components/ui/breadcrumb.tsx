@@ -10,7 +10,7 @@ export type Crumb = { label: string; href?: string };
  * Breadcrumb for dark page headers. The last crumb is the current page.
  * Also emits BreadcrumbList structured data.
  */
-export function Breadcrumb({ items }: { items: Crumb[] }) {
+export function Breadcrumb({ items, align = "center" }: { items: Crumb[]; align?: "center" | "start" }) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -24,7 +24,10 @@ export function Breadcrumb({ items }: { items: Crumb[] }) {
 
   return (
     <>
-      <nav aria-label="Breadcrumb" className="mb-7 flex flex-wrap items-center justify-center gap-2 text-sm">
+      <nav
+        aria-label="Breadcrumb"
+        className={`mb-7 flex flex-wrap items-center gap-2 text-sm ${align === "center" ? "justify-center" : "justify-start"}`}
+      >
         {items.map((item, i) => {
           const isLast = i === items.length - 1;
           return (

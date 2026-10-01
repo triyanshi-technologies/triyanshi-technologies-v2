@@ -14,15 +14,16 @@
     "*.css"
   ],
   "scripts": {
-    "predev": "node scripts/optimize-images.mjs",
+    "predev": "node scripts/clear-fetch-cache.mjs && node scripts/optimize-images.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/optimize-images.mjs",
+    "prebuild": "node scripts/clear-fetch-cache.mjs && node scripts/optimize-images.mjs",
     "build": "next build",
-    "postbuild": "node scripts/check-assets.mjs",
+    "postbuild": "node scripts/fix-export-segments.mjs && node scripts/check-assets.mjs",
     "images": "node scripts/optimize-images.mjs",
     "start": "npx serve@latest out",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sanity:import": "node --env-file=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/sanity-import.ts"
   },
   "dependencies": {
     "@sanity/client": "^8.9.0",

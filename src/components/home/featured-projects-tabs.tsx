@@ -5,6 +5,7 @@ import { ProjectCard } from "@/components/projects/project-card";
 import { ButtonLink } from "@/components/ui/button";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import { cx } from "@/lib/cx";
+import { arrowNudge } from "@/lib/hover";
 import type { HomeShowcaseCategory } from "@/lib/projects/types";
 
 /** Slide an absolutely positioned indicator onto `target` (both inside the same positioned parent). */
@@ -191,7 +192,7 @@ export function FeaturedProjectsTabs({ categories }: { categories: HomeShowcaseC
         {group.total > group.projects.length && (
           <div className="col-span-full mt-2 flex justify-center">
             <ButtonLink href={group.href}>
-              View All Projects <ArrowRightIcon size={14} strokeWidth={2.5} />
+              View All Projects <ArrowRightIcon size={14} strokeWidth={2.5} className={arrowNudge} />
             </ButtonLink>
           </div>
         )}

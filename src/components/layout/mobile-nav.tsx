@@ -153,8 +153,8 @@ function Accordion({ label, children, buttonClassName, panelClassName, chevronSi
         <ChevronDownIcon
           size={chevronSize}
           className={cx(
-            "shrink-0 text-muted transition-[rotate,color] duration-250",
-            expanded && "rotate-180 text-primary",
+            "shrink-0 transition-[rotate,color] duration-250",
+            expanded ? "rotate-180 text-primary" : "text-muted",
           )}
         />
       </button>

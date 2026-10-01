@@ -7,8 +7,10 @@
  * Runs before `next dev` and `next build` (see package.json). Variants that
  * are newer than their source are skipped, so repeat runs are near-instant.
  * Widths larger than the source are written at the source size (never upscaled).
+ * Variants whose source image was deleted or renamed are removed.
  */
-import { mkdir, readdir, stat } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { mkdir, readdir, rm, stat } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 import { allImageWidths, VARIANTS_DIR } from "../image-sizes.mjs";
@@ -56,6 +58,26 @@ async function processImage(source) {
   return written;
 }
 
+/** Delete variants whose source image no longer exists. */
+async function removeOrphans(dir = OUT_DIR) {
+  if (!existsSync(dir)) return 0;
+  let removed = 0;
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      removed += await removeOrphans(full);
+      if ((await readdir(full)).length === 0) await rm(full, { recursive: true });
+      continue;
+    }
+    const base = path.join(PUBLIC_DIR, path.relative(OUT_DIR, full).replace(/-\d+\.webp$/, ""));
+    if (![".webp", ".png", ".jpg", ".jpeg"].some((ext) => existsSync(base + ext))) {
+      await rm(full);
+      removed++;
+    }
+  }
+  return removed;
+}
+
 const started = Date.now();
 const sources = [];
 for await (const file of walk(PUBLIC_DIR)) sources.push(file);
@@ -66,6 +88,8 @@ for (let i = 0; i < sources.length; i += CONCURRENCY) {
   written += batch.reduce((sum, n) => sum + n, 0);
 }
 
+const removed = await removeOrphans();
+
 console.log(
-  `[images] ${sources.length} sources, ${written} variants written (${((Date.now() - started) / 1000).toFixed(1)}s)`,
+  `[images] ${sources.length} sources, ${written} variants written, ${removed} orphans removed (${((Date.now() - started) / 1000).toFixed(1)}s)`,
 );

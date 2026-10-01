@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Section, SectionTitle } from "@/components/ui/layout";
 import { appPartners } from "@/content/app-partners";
+import { cn } from "@/lib/cn";
+import { cardHover } from "@/lib/hover";
 import { CarouselNav } from "./carousel-nav";
 
 const GRID_ID = "apps-grid";
@@ -28,7 +30,10 @@ export function AppPartners() {
           <RevealItem
             as="li"
             key={app.name}
-            className="grid min-h-50 shrink-0 basis-[85%] snap-start content-between gap-4 rounded-xl border border-line bg-white p-5 transition-[border-color,box-shadow,opacity,translate] hover:border-primary/60 hover:shadow-md sm:basis-[calc((100%-1rem)/2.3)] lg:min-h-0"
+            className={cn(
+              "grid min-h-50 shrink-0 basis-[85%] snap-start content-between gap-4 rounded-xl border border-line bg-white p-5 sm:basis-[calc((100%-1rem)/2.3)] lg:min-h-0",
+              cardHover,
+            )}
           >
             <div className="flex min-w-0 items-center gap-3.5">
               <Image

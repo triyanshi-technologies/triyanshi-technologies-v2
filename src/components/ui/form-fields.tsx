@@ -1,26 +1,53 @@
 import type { ComponentProps, ReactNode } from "react";
-import { cn } from "@/lib/cn";
+import { cx } from "@/lib/cx";
 import { ChevronDownIcon } from "./icons";
 
 /*
- * Form controls. Validation state is driven by `aria-invalid`, so the same
- * attribute that informs screen readers also paints the error style.
+ * Form controls (used inside client forms, hence `cx`, not `cn`). `className`
+ * is for layout only. Validation state is driven by `aria-invalid`, so the
+ * same attribute that informs screen readers also paints the error style.
+ *
+ *  md — compact fields (tool lead forms)
+ *  lg — roomy fields (contact form)
  */
+export type FieldSize = "md" | "lg";
+
 const control =
-  "w-full rounded-lg border border-line bg-surface px-4 py-3 text-base text-ink transition-[border-color,background-color,box-shadow] duration-300 placeholder:font-semibold placeholder:text-subtle focus:border-primary/60 focus:bg-white focus:ring-4 focus:ring-primary/12 focus:outline-none aria-invalid:border-danger/70 aria-invalid:bg-danger-soft disabled:opacity-60";
+  "w-full rounded-lg border border-line bg-surface text-base text-ink transition-[border-color,background-color,box-shadow] duration-300 placeholder:font-semibold placeholder:text-subtle focus:border-primary/60 focus:bg-white focus:ring-4 focus:ring-primary/12 focus:outline-none aria-invalid:border-danger/70 aria-invalid:bg-danger-soft disabled:opacity-60";
 
-export function Input({ className, ...props }: ComponentProps<"input">) {
-  return <input className={cn(control, className)} {...props} />;
+const sizes: Record<FieldSize, string> = {
+  md: "px-3.5 py-3",
+  lg: "px-4.5 py-4",
+};
+
+type SizeProp = { size?: FieldSize };
+
+export function Input({
+  size = "md",
+  className,
+  ...props
+}: Omit<ComponentProps<"input">, "size"> & SizeProp) {
+  return <input className={cx(control, sizes[size], className)} {...props} />;
 }
 
-export function Textarea({ className, ...props }: ComponentProps<"textarea">) {
-  return <textarea className={cn(control, "min-h-56 resize-y", className)} {...props} />;
-}
-
-export function Select({ className, children, ...props }: ComponentProps<"select">) {
+export function Textarea({ size = "md", className, ...props }: ComponentProps<"textarea"> & SizeProp) {
   return (
-    <div className="relative">
-      <select className={cn(control, "cursor-pointer appearance-none pr-10", className)} {...props}>
+    <textarea
+      className={cx(control, sizes[size], size === "lg" ? "min-h-56" : "min-h-28", "resize-y", className)}
+      {...props}
+    />
+  );
+}
+
+export function Select({
+  size = "md",
+  className,
+  children,
+  ...props
+}: Omit<ComponentProps<"select">, "size"> & SizeProp) {
+  return (
+    <div className={cx("relative", className)}>
+      <select className={cx(control, sizes[size], "cursor-pointer appearance-none pr-10")} {...props}>
         {children}
       </select>
       <ChevronDownIcon
@@ -45,8 +72,8 @@ type FieldProps = {
 /** Label + control + optional hint. The control itself must carry `id={id}`. */
 export function Field({ id, label, required, hideLabel, hint, className, children }: FieldProps) {
   return (
-    <div className={cn("grid gap-1.5", className)}>
-      <label htmlFor={id} className={cn("text-sm font-semibold text-ink", hideLabel && "sr-only")}>
+    <div className={cx("grid gap-1.5", className)}>
+      <label htmlFor={id} className={hideLabel ? "sr-only" : "text-sm font-semibold text-ink"}>
         {label}
         {required && (
           <span className="ml-0.5 font-semibold text-danger" aria-hidden="true">

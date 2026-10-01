@@ -19,7 +19,7 @@ export type Testimonial = {
 };
 
 const brand = (file: string) => `/assets/brands/${file}`;
-const shot = (file: string) => `/project-images/full website/${file}`;
+const shot = (file: string) => `/assets/screenshots/${file}`;
 
 export const testimonials: Testimonial[] = [
   {
@@ -42,7 +42,7 @@ export const testimonials: Testimonial[] = [
     quote:
       "I couldn't be happier with the redesign of my Volusion storefront. Timely, responsive, easy to work with, and the communication was consistently strong. The finished product is a huge upgrade. It is visually so much better, functionally better, and exactly what I needed. Did an outstanding job and I'm grateful for the care put into it.",
     company: { name: "Teacher Boutique", logo: brand("teacherboutique.com.webp") },
-    screenshot: shot("Teacher Boutique.webp"),
+    screenshot: shot("teacher-boutique.webp"),
     platform: "volusion",
     badges: ["Redesign", "CRO"],
   },

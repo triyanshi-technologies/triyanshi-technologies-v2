@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDownIcon } from "@/components/ui/icons";
 import type { Testimonial } from "@/content/testimonials";
 import { cx } from "@/lib/cx";
+import { iconButtonHover } from "@/lib/hover";
 
 const AUTOPLAY_MS = 4500;
 const SWIPE_PX = 50;
@@ -225,7 +226,10 @@ function ArrowButton({
       type="button"
       aria-label={label}
       onClick={onClick}
-      className="flex size-11 shrink-0 items-center justify-center rounded-full border border-line bg-white text-ink transition duration-250 hover:scale-106 hover:border-primary hover:bg-primary hover:text-white focus-visible:scale-106 focus-visible:border-primary focus-visible:bg-primary focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      className={cx(
+        "flex size-11 shrink-0 items-center justify-center rounded-full border border-line bg-white text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+        iconButtonHover,
+      )}
     >
       <ChevronDownIcon
         size={18}
@@ -320,8 +324,8 @@ function TestimonialCard({ testimonial: t, active, index, total }: CardProps) {
             <span
               key={label}
               className={cx(
-                "inline-flex items-center rounded-full border border-primary/25 bg-primary/8 px-3 py-1.25 text-xs leading-none font-semibold whitespace-nowrap text-primary-text sm:px-4 sm:py-2",
-                typeof badge !== "string" && "font-bold text-black",
+                "inline-flex items-center rounded-full border border-primary/25 bg-primary/8 px-3 py-1.25 text-xs leading-none whitespace-nowrap sm:px-4 sm:py-2",
+                typeof badge === "string" ? "font-semibold text-primary-text" : "font-bold text-black",
               )}
             >
               {label}

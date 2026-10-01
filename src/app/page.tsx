@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/home/hero-section";
 import { StatsStrip } from "@/components/home/stats-strip";
 import { TeamSection } from "@/components/home/team-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
+import { JsonLd, websiteSchema } from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -15,6 +16,7 @@ export const metadata = buildMetadata({ description: site.description, path: "/"
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={websiteSchema} />
       <HeroSection />
       <StatsStrip />
       <BrandMarquee />

@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import { ArrowRightIcon, ChevronDownIcon, CloseIcon } from "@/components/ui/icons";
 import { cx } from "@/lib/cx";
+import { mediaCardHover } from "@/lib/hover";
 import type { Project } from "@/lib/projects/types";
 
 type ProjectCardProps = {
@@ -28,8 +29,8 @@ export function ProjectCard({ project, expanded, onToggle, index = 0, sizes }: P
       style={{ animationDelay: `${index * 90}ms` } as CSSProperties}
       onKeyDown={(e) => e.key === "Escape" && expanded && onToggle()}
       className={cx(
-        "group/card relative min-h-85 w-full min-w-0 animate-card-up overflow-hidden rounded-xl border border-transparent transition-colors duration-250 hover:border-primary/42",
-        expanded && "border-primary/42",
+        `group/card relative min-h-85 w-full min-w-0 animate-card-up overflow-hidden rounded-xl border ${mediaCardHover}`,
+        expanded ? "border-primary" : "border-transparent",
       )}
     >
       <Image
@@ -37,6 +38,9 @@ export function ProjectCard({ project, expanded, onToggle, index = 0, sizes }: P
         alt=""
         fill
         sizes={sizes ?? "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"}
+        placeholder={project.image.blurDataURL ? "blur" : "empty"}
+        blurDataURL={project.image.blurDataURL}
+        style={{ objectPosition: project.image.position }}
         className="object-cover"
       />
       {/* Bottom scrim (always) + darker wash on hover */}

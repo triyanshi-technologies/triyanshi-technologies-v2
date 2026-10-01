@@ -21,7 +21,8 @@ export default function imageLoader({ src, width, quality }: ImageLoaderProps) {
   }
 
   if (src.startsWith("/") && LOCAL_RASTER.test(src)) {
-    return `/_img${src.replace(LOCAL_RASTER, "")}-${width}.webp`;
+    // Encoded: file names with spaces would otherwise break the srcset list.
+    return encodeURI(`/_img${src.replace(LOCAL_RASTER, "")}-${width}.webp`);
   }
 
   return src;

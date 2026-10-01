@@ -6,11 +6,13 @@ Triyanshi Technologies designs, builds, and modernizes ecommerce storefronts and
 
 ## Services
 
+- [All Services](https://triyanshitechnologies.com/services): Every service, grouped by eCommerce, Enterprise Solutions, and Compliance.
 - [eCommerce Development](https://triyanshitechnologies.com/services/ecommerce): Ecommerce storefront design, build, and optimization.
 - [Enterprise Solutions](https://triyanshitechnologies.com/services/enterprise-solutions): Enterprise-grade software systems for scaling businesses.
 
 ## Free Tools
 
+- [All Tools](https://triyanshitechnologies.com/tools): Overview of the free planning tools.
 - [eCommerce ROI Calculator](https://triyanshitechnologies.com/tools/roi-calculator): Estimate monthly revenue lift, ROI, and payback period from CRO/AOV improvements.
 - [Site Speed Grader](https://triyanshitechnologies.com/tools/site-speed-grader): Grade a website's Core Web Vitals and get a prioritized fix list.
 - [AI Readiness Assessment](https://triyanshitechnologies.com/tools/ai-readiness-assessment): Assess a business's readiness to adopt AI and automation.
@@ -18,6 +20,7 @@ Triyanshi Technologies designs, builds, and modernizes ecommerce storefronts and
 
 ## Portfolio
 
+- [All Portfolios](https://triyanshitechnologies.com/portfolio): Project portfolios by platform and service.
 - [Shopify Portfolio](https://triyanshitechnologies.com/portfolio/shopify): Shopify and Shopify Plus projects delivered.
 - [BigCommerce Portfolio](https://triyanshitechnologies.com/portfolio/bigcommerce): BigCommerce projects delivered.
 - [Volusion Portfolio](https://triyanshitechnologies.com/portfolio/volusion): Volusion projects delivered.
