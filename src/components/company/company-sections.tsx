@@ -114,10 +114,10 @@ export function TeamGrid({ members }: { members: { name: string; role: string; b
   return (
     <RevealGroup className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {members.map((member) => (
-        <RevealItem as="article" key={member.name} className={cn(cardBase, "overflow-hidden")}>
+        <RevealItem as="article" key={member.name} className={cardBase}>
           <div
             aria-hidden="true"
-            className="flex aspect-4/3 w-full items-center justify-center bg-linear-135 from-primary/8 to-primary/2 text-primary/40"
+            className="flex aspect-4/3 w-full items-center justify-center rounded-t-[calc(var(--radius-xl)-1px)] bg-linear-135 from-primary/8 to-primary/2 text-primary/40"
           >
             <UserIcon width={64} height={64} />
           </div>

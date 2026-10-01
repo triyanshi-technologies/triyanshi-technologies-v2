@@ -8,14 +8,27 @@
  * other transition/translate/border/shadow hover classes next to these, and
  * keep `opacity` out of the transition lists: a transition outranks the
  * reveal animation and would cut its staggered fade short.
+ *
+ * Lifting cards must not use `overflow-hidden` (it clips the hit area below);
+ * round/clip inner media instead.
  */
 
 const focusLift = "focus-visible:-translate-y-1 has-focus-visible:-translate-y-1";
+
+/*
+ * A transform moves the hit area with the card, so a cursor resting on the
+ * bottom edge would fall off the lifted card, drop it, re-hover, lift… a
+ * flicker loop. While hovered, an invisible strip fills the gap the lift
+ * leaves under the card, so the hover holds steady.
+ */
+const steadyHover =
+  "relative hover:before:absolute hover:before:inset-x-0 hover:before:top-full hover:before:h-1.5 hover:before:content-['']";
 
 /** Cards on light surfaces: lift 4px, orange border, soft shadow. */
 export const cardHover = [
   "transition-[translate,border-color,box-shadow] duration-300 ease-out",
   "hover:-translate-y-1 hover:border-primary hover:shadow-card-hover",
+  steadyHover,
   focusLift,
   "focus-visible:border-primary focus-visible:shadow-card-hover has-focus-visible:border-primary has-focus-visible:shadow-card-hover",
 ].join(" ");
@@ -24,6 +37,7 @@ export const cardHover = [
 export const cardHoverDark = [
   "transition-[translate,border-color,background-color] duration-300 ease-out",
   "hover:-translate-y-1 hover:border-primary/40 hover:bg-primary/8",
+  steadyHover,
   focusLift,
   "focus-visible:border-primary/40 focus-visible:bg-primary/8 has-focus-visible:border-primary/40 has-focus-visible:bg-primary/8",
 ].join(" ");

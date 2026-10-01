@@ -143,11 +143,11 @@ const ease = "ease-[cubic-bezier(0.22,1,0.36,1)]";
 function FounderCard({ founder }: { founder: Founder }) {
   return (
     <article
-      className={`group relative flex h-full flex-col gap-4.5 overflow-hidden rounded-3xl border border-line bg-surface p-5.5 pb-5 shadow-[0_14px_36px_rgb(0_0_0/0.08)] ${cardHover} lg:gap-6 lg:p-7 lg:pb-6.5`}
+      className={`group relative flex h-full flex-col gap-4.5 rounded-3xl border border-line bg-surface p-5.5 pb-5 shadow-[0_14px_36px_rgb(0_0_0/0.08)] ${cardHover} lg:gap-6 lg:p-7 lg:pb-6.5`}
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-linear-135 from-primary/8 via-transparent via-42% to-primary/4 opacity-0 transition-opacity duration-300 group-focus-within:opacity-100 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 rounded-[inherit] bg-linear-135 from-primary/8 via-transparent via-42% to-primary/4 opacity-0 transition-opacity duration-300 group-focus-within:opacity-100 group-hover:opacity-100"
       />
 
       <a

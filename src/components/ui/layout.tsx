@@ -1,6 +1,5 @@
 import type { ComponentProps, ElementType, ReactNode } from "react";
 import { cn } from "@/lib/cn";
-import { cardHover } from "@/lib/hover";
 import { Container } from "./container";
 
 export { Container };
@@ -88,22 +87,6 @@ export function Badge({ className, ...props }: ComponentProps<"span">) {
     <span
       className={cn(
         "mb-4 inline-block w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
-type CardProps = ComponentProps<"div"> & { interactive?: boolean };
-
-/** White bordered card. `interactive` adds the lift-on-hover effect. */
-export function Card({ interactive = false, className, ...props }: CardProps) {
-  return (
-    <div
-      className={cn(
-        "flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white shadow-md",
-        interactive && cardHover,
         className,
       )}
       {...props}

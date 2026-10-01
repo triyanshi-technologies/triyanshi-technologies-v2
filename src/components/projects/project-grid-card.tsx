@@ -42,11 +42,11 @@ export function ProjectGridCard({ project, index = 0, linked = true }: ProjectGr
     <article
       style={{ animationDelay: `${index * 70}ms` }}
       className={cn(
-        "group/link relative flex animate-card-up flex-col overflow-hidden rounded-xl border border-line bg-white",
+        "group/link relative flex animate-card-up flex-col rounded-xl border border-line bg-white",
         linked && cardHover,
       )}
     >
-      <div className="relative aspect-[1904/945] overflow-hidden border-b border-line bg-surface">
+      <div className="relative aspect-[1904/945] overflow-hidden rounded-t-[calc(var(--radius-xl)-1px)] border-b border-line bg-surface">
         <Image
           src={project.image.src}
           alt=""

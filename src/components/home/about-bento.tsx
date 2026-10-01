@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button";
 import { Badge, Section } from "@/components/ui/layout";
-import { cardHoverDark } from "@/lib/hover";
 
 const icon = {
   width: 28,
@@ -156,7 +155,7 @@ export function AboutBento() {
         {FEATURES.map((feature) => (
           <Reveal
             key={feature.title}
-            className={`${tile} ${darkSurface} flex min-h-66.5 flex-col gap-3 border border-primary/14 px-6 pt-7 pb-7 tone-dark shadow-[0_16px_36px_rgb(0_0_0/0.12)] ${cardHoverDark} sm:col-start-1 xl:col-start-auto`}
+            className={`relative rounded-2xl ${darkSurface} flex min-h-66.5 flex-col gap-3 border border-primary/14 px-6 pt-7 pb-7 tone-dark shadow-[0_16px_36px_rgb(0_0_0/0.12)] sm:col-start-1 xl:col-start-auto`}
           >
             <div
               aria-hidden="true"
