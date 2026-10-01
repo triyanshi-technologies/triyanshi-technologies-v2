@@ -1,0 +1,7 @@
+legacy
+out
+.next
+node_modules
+public
+studio/dist
+package-lock.json

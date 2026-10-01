@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BC14P3V0GL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BC14P3V0GL');
+    </script>
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "ulvuoivagm");
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eCommerce ROI Calculator | Triyanshi Technologies</title>
+    <meta
+      name="description"
+      content="Estimate the revenue impact of conversion rate and average order value optimization on your store, in INR or USD, using benchmark-backed ecommerce assumptions."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#121212" />
+    <link
+      rel="icon"
+      href="../assets/favicon_v2.webp"
+      type="image/png"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      href="../assets/favicon_v2.webp"
+      type="image/webp"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="stylesheet" href="../css/style.min.css" />
+    <link rel="stylesheet" href="roi-calculator.min.css" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://triyanshitechnologies.com/#organization",
+  "name": "Triyanshi Technologies",
+  "url": "https://triyanshitechnologies.com/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://triyanshitechnologies.com/assets/WhiteLogo.webp"
+  },
+  "image": "https://triyanshitechnologies.com/assets/WhiteLogo.webp",
+  "description": "Triyanshi Technologies is a technology partner focused on eCommerce development and enterprise solutions & AI, delivering 250+ solutions across 15+ countries.",
+  "email": "coffee@triyanshitechnologies.com",
+  "telephone": "+91-9909761261",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Worldwide"
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+91-9909761261",
+      "email": "coffee@triyanshitechnologies.com",
+      "contactType": "customer service",
+      "availableLanguage": ["English"]
+    }
+  ],
+  "sameAs": [
+    "https://in.linkedin.com/company/triyanshi-technologies",
+    "https://www.facebook.com/61580070863109/",
+    "https://www.instagram.com/triyanshi_technologies"
+  ],
+  "knowsAbout": [
+    "eCommerce Development",
+    "Shopify",
+    "BigCommerce",
+    "Volusion",
+    "Webflow",
+    "Enterprise Solutions Development",
+    "AI-Powered Automation",
+    "ERP, CRM & Business Portals"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Technology Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "eCommerce Development & Growth",
+          "description": "Store development, redesign, platform migration, CRO/UX, SEO, and ongoing maintenance for commerce experiences."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Enterprise Solutions & AI",
+          "description": "Custom software development, AI-powered automation, ERP/CRM/business portals, integrations & APIs, analytics & dashboards."
+        }
+      }
+    ]
+  }
+}
+</script>
+</head>
+
+  <body>
+    <div id="site-nav"></div>
+
+    <main>
+      <!-- Hero Header Section -->
+      <section
+        class="project-header roi-hero bg-dark"
+        aria-label="ROI Calculator"
+      >
+        <div class="container">
+          <nav class="page-breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span class="sep" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8.91003 19.9201L15.43 13.4001C16.2 12.6301 16.2 11.3701 15.43 10.6001L8.91003 4.08008"
+                  stroke="#9e9e9e"
+                  stroke-width="0.84"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </svg>
+            </span>
+            <a href="./">Tools</a>
+            <span class="sep" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8.91003 19.9201L15.43 13.4001C16.2 12.6301 16.2 11.3701 15.43 10.6001L8.91003 4.08008"
+                  stroke="#9e9e9e"
+                  stroke-width="0.84"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </svg>
+            </span>
+            <span aria-current="page">ROI Calculator</span>
+          </nav>
+
+          <h1 class="heading-xl">
+            eCommerce ROI <span class="text-primary">Calculator</span>
+          </h1>
+          <p class="roi-hero-sub">
+            Estimate monthly revenue lift, net ROI, and payback period in INR
+            or USD using your store numbers and current ecommerce benchmarks.
+          </p>
+        </div>
+      </section>
+
+      <!-- Main Calculator & Lead Capture Section -->
+      <section class="roi-section bg-light" aria-label="ROI calculator">
+        <div class="container">
+          <div class="roi-grid">
+            <!-- Calculator Card (Full Width) -->
+            <div
+              class="roi-calc-card reveal"
+              aria-label="Benchmark based ROI calculator"
+            >
+              <div class="roi-card-head">
+                <div>
+                  <span class="roi-kicker">Benchmark Model</span>
+                  <h2 class="roi-card-title">Your Store Numbers</h2>
+                </div>
+                <div class="roi-currency-toggle" role="group" aria-label="Currency">
+                  <button type="button" class="roi-currency-option is-active" data-currency="INR" aria-pressed="true">
+                    <span class="roi-currency-dot"></span>
+                    INR (₹)
+                  </button>
+                  <button type="button" class="roi-currency-option" data-currency="USD" aria-pressed="false">
+                    <span class="roi-currency-dot"></span>
+                    USD ($)
+                  </button>
+                </div>
+              </div>
+
+              <!-- Industry Selector -->
+              <div class="roi-field roi-field--full">
+                <div class="roi-field-head">
+                  <label for="roi-industry">Industry preset</label>
+                  <span class="roi-field-hint"
+                    >Sets baseline AOV & targets</span
+                  >
+                </div>
+                <div class="roi-select-wrapper">
+                  <select class="roi-select" id="roi-industry">
+                    <option
+                      data-label="Fashion / Apparel"
+                      data-aov-inr="1800"
+                      data-aov-usd="75"
+                      data-current-cvr="2.2"
+                      data-target-cvr="2.8"
+                      selected
+                    >Fashion / Apparel</option>
+                    <option
+                      data-label="Beauty / Personal Care"
+                      data-aov-inr="1000"
+                      data-aov-usd="45"
+                      data-current-cvr="3.2"
+                      data-target-cvr="4.0"
+                    >Beauty / Personal Care</option>
+                    <option
+                      data-label="Electronics"
+                      data-aov-inr="10000"
+                      data-aov-usd="220"
+                      data-current-cvr="1.2"
+                      data-target-cvr="1.5"
+                    >Electronics</option>
+                    <option
+                      data-label="Grocery / Quick Commerce"
+                      data-aov-inr="600"
+                      data-aov-usd="35"
+                      data-current-cvr="3.5"
+                      data-target-cvr="4.3"
+                    >Grocery / Quick Commerce</option>
+                    <option
+                      data-label="Home / Furniture"
+                      data-aov-inr="7500"
+                      data-aov-usd="180"
+                      data-current-cvr="1.3"
+                      data-target-cvr="1.6"
+                    >Home / Furniture</option>
+                    <option
+                      data-label="Health / Wellness"
+                      data-aov-inr="1400"
+                      data-aov-usd="55"
+                      data-current-cvr="2.5"
+                      data-target-cvr="3.1"
+                    >Health / Wellness</option>
+                    <option
+                      data-label="Other"
+                      data-aov-inr="1500"
+                      data-aov-usd="60"
+                      data-current-cvr="2.0"
+                      data-target-cvr="2.5"
+                    >Other</option>
+                  </select>
+                  <svg
+                    class="roi-select-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <!-- Quick Action Chips -->
+              <!-- <div class="roi-bottom-row">
+                <div
+                  class="roi-benchmark-actions"
+                  aria-label="Benchmark shortcuts"
+                >
+                  <span class="roi-actions-label">Quick benchmarks:</span>
+                  <button
+                    type="button"
+                    class="roi-chip"
+                    data-action="uplift-conservative"
+                  >
+                    Conservative (+15%)
+                  </button>
+                  <button
+                    type="button"
+                    class="roi-chip"
+                    data-action="uplift-expected"
+                  >
+                    Expected (+25%)
+                  </button>
+                  <button
+                    type="button"
+                    class="roi-chip"
+                    data-action="uplift-strong"
+                  >
+                    Strong (+40%)
+                  </button>
+                  <button type="button" class="roi-chip" data-action="aov-lift">
+                    +10% AOV
+                  </button>
+                </div>
+              </div> -->
+              <!-- Input Grid -->
+              <div class="roi-input-grid">
+                <!-- Group 1: Baseline -->
+                <div class="roi-group-header">
+                  <span class="roi-group-num">01</span> Baseline Metrics
+                </div>
+
+                <div class="roi-field">
+                  <div class="roi-field-head">
+                    <label for="roi-visitors">Monthly visitors</label>
+                    <input
+                      type="number"
+                      class="roi-number-input"
+                      id="roi-visitors-input"
+                      min="1000"
+                      max="500000"
+                      step="500"
+                      value="10000"
+                      aria-label="Monthly visitors value"
+                    />
+                  </div>
+                  <input
+                    type="range"
+                    class="roi-range"
+                    id="roi-visitors"
+                    min="1000"
+                    max="500000"
+                    step="500"
+                    value="10000"
+                  />
+                </div>
+
+                <div class="roi-field">
+                  <div class="roi-field-head">
+                    <label for="roi-current-cvr">Current conversion rate</label>
+                    <div class="roi-value-control">
+                      <input
+                        type="number"
+                        class="roi-number-input"
+                        id="roi-current-cvr-input"
+                        min="0.1"
+                        max="15"
+                        step="0.01"
+                        value="1.74"
+                        aria-label="Current conversion rate value"
+                      />
+                      <span class="roi-value-suffix" aria-hidden="true">%</span>
+                    </div>
+                  </div>
+                  <input
+                    type="range"
+                    class="roi-range"
+                    id="roi-current-cvr"
+                    min="0.1"
+                    max="15"
+                    step="0.01"
+                    value="1.74"
+                  />
+                </div>
+
+                <div class="roi-field">
+                  <div class="roi-field-head">
+                    <label for="roi-current-aov">Current AOV</label>
+                    <div class="roi-value-control">
+                      <span class="roi-value-prefix roi-currency-symbol" aria-hidden="true">₹</span>
+                      <input
+                        type="number"
+                        class="roi-number-input"
+                        id="roi-current-aov-input"
+                        min="100"
+                        max="500000"
+                        step="1"
+                        value="1500"
+                        aria-label="Current average order value"
+                      />
+                    </div>
+                  </div>
+                  <input
+                    type="range"
+                    class="roi-range"
+                    id="roi-current-aov"
+                    min="100"
+                    max="500000"
+                    step="1"
+                    value="1500"
+                  />
+                </div>
+
+                <div class="roi-field">
+                  <div class="roi-field-head">
+                    <label for="roi-margin">Gross margin</label>
+                    <div class="roi-value-control">
+                      <input
+                        type="number"
+                        class="roi-number-input"
+                        id="roi-margin-input"
+                        min="10"
+                        max="90"
+                        step="1"
+                        value="40"
+                        aria-label="Gross margin percentage"
+                      />
+                      <span class="roi-value-suffix" aria-hidden="true">%</span>
+                    </div>
+                  </div>
+                  <input
+                    type="range"
+                    class="roi-range"
+                    id="roi-margin"
+                    min="10"
+                    max="90"
+                    step="1"
+                    value="40"
+                  />
+                </div>
+
+                <!-- Group 2: Growth Targets -->
+                <div class="roi-group-header">
+                  <span class="roi-group-num">02</span> Optimization Targets &
+                  Investment
+                </div>
+
+                <div class="roi-field">
+                  <div class="roi-field-head">
+                    <label for="roi-target-cvr">Target conversion rate</label>
+                    <div class="roi-value-control">
+                      <input
+                        type="number"
+                        class="roi-number-input"
+                        id="roi-target-cvr-input"
+                        min="0.1"
+                        max="20"
+                        step="0.01"
+                        value="2.61"
+                        aria-label="Target conversion rate value"
+                      />
+                      <span class="roi-value-suffix" aria-hidden="true">%</span>
+                    </div>
+                  </div>
+                  <input
+                    type="range"
+                    class="roi-range"
+                    id="roi-target-cvr"
+                    min="0.1"
+                    max="20"
+                    step="0.01"
+                    value="2.61"
+                  />
+                </div>
+
+                <div class="roi-field">
+                  <div class="roi-field-head">
+                    <label for="roi-target-aov">Target AOV</label>
+                    <div class="roi-value-control">
+                      <span class="roi-value-prefix roi-currency-symbol" aria-hidden="true">₹</span>
+                      <input
+                        type="number"
+                        class="roi-number-input"
+                        id="roi-target-aov-input"
+                        min="100"
+                        max="500000"
+                        step="1"
+                        value="1650"
+                        aria-label="Target average order value"
+                      />
+                    </div>
+                  </div>
+                  <input
+                    type="range"
+                    class="roi-range"
+                    id="roi-target-aov"
+                    min="100"
+                    max="500000"
+                    step="1"
+                    value="1650"
+                  />
+                </div>
+
+                <div class="roi-field">
+                  <div class="roi-field-head">
+                    <label for="roi-investment">Project investment</label>
+                    <div class="roi-value-control">
+                      <span class="roi-value-prefix roi-currency-symbol" aria-hidden="true">₹</span>
+                      <input
+                        type="number"
+                        class="roi-number-input"
+                        id="roi-investment-input"
+                        min="10000"
+                        max="10000000"
+                        step="10000"
+                        value="500000"
+                        aria-label="Project investment"
+                      />
+                    </div>
+                  </div>
+                  <input
+                    type="range"
+                    class="roi-range"
+                    id="roi-investment"
+                    min="10000"
+                    max="10000000"
+                    step="10000"
+                    value="500000"
+                  />
+                </div>
+
+                <div class="roi-field roi-field--timeframe">
+                  <label for="roi-timeframe-input">Timeframe</label>
+                  <div class="roi-value-control roi-value-control--months">
+                    <input
+                      type="number"
+                      class="roi-number-input"
+                      id="roi-timeframe-input"
+                      min="1"
+                      max="36"
+                      step="1"
+                      value="12"
+                      aria-label="Timeframe in months"
+                    />
+                    <span class="roi-value-suffix" aria-hidden="true"
+                      >months</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <!-- Payback Showcase -->
+              <div class="roi-results-header">
+                <h3 class="roi-results-title">
+                  Projected Performance Breakdown
+                </h3>
+              </div>
+
+              <div class="roi-payback-showcase" id="roi-payback-showcase">
+                <span class="roi-payback-eyebrow">Estimated payback</span>
+                <div class="roi-payback-figure">
+                  <strong id="roi-payback-months">~3</strong>
+                  <span class="roi-payback-unit" id="roi-payback-unit"
+                    >months</span
+                  >
+                </div>
+                <p class="roi-payback-copy" id="roi-payback-copy">
+                  to recover your
+                  <span
+                    class="roi-payback-investment"
+                    id="roi-payback-investment"
+                    >₹5,00,000</span
+                  >
+                  investment
+                </p>
+
+                <div class="roi-payback-track" aria-hidden="true">
+                  <div class="roi-payback-track-fill" id="roi-payback-fill"></div>
+                  <div class="roi-payback-marker" id="roi-payback-marker">
+                    <span class="roi-payback-marker-dot"></span>
+                    <span class="roi-payback-marker-label">Breakeven</span>
+                  </div>
+                </div>
+                <div class="roi-payback-track-labels" aria-hidden="true">
+                  <span>Today</span>
+                  <span id="roi-payback-timeframe-label">Month 12</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Custom Analysis Section (Positioned Below Calculator Card) -->
+            <div
+              class="roi-lead-card reveal"
+              aria-label="Request a custom analysis"
+            >
+              <div class="roi-lead-grid">
+                <div class="roi-lead-info">
+                  <div class="roi-lead-header">
+                    <span class="roi-kicker">Tailored Growth Audit</span>
+                    <h2 class="roi-card-title">Want a Custom Analysis?</h2>
+                    <p class="roi-lead-sub">
+                      Get a personalized ROI & conversion roadmap calculated
+                      directly from your store's live analytics.
+                    </p>
+                  </div>
+
+                
+                </div>
+
+                <div class="roi-lead-form-wrapper">
+                  <form class="roi-lead-form" id="roi-lead-form" novalidate>
+                    <div class="roi-lead-field">
+                      <label for="roi-name">Your Name <span class="required-star">*</span></label>
+                      <input
+                        id="roi-name"
+                        name="name"
+                        type="text"
+                        placeholder="e.g. John Doe"
+                        autocomplete="name"
+                        required
+                      />
+                    </div>
+
+                    <div class="roi-lead-field">
+                      <label for="roi-email">Work Email <span class="required-star">*</span></label>
+                      <input
+                        id="roi-email"
+                        name="email"
+                        type="email"
+                        placeholder="name@company.com"
+                        inputmode="email"
+                        autocomplete="email"
+                        required
+                      />
+                    </div>
+
+                    <div class="roi-lead-field">
+                      <label for="roi-store">Store URL</label>
+                      <input
+                        id="roi-store"
+                        name="store"
+                        type="url"
+                        placeholder="https://yourstore.com"
+                        autocomplete="url"
+                      />
+                    </div>
+
+                    <div class="roi-lead-field">
+                      <label for="roi-message">Message</label>
+                      <textarea
+                        id="roi-message"
+                        name="message"
+                        placeholder="Anything else about your goals or numbers?"
+                        autocomplete="off"
+                      ></textarea>
+                    </div>
+
+                    <input type="hidden" id="roi-summary" name="summary" />
+
+                    <button
+                      type="submit"
+                      class="btn btn-primary roi-lead-submit"
+                    >
+                      Get My Custom ROI Report
+                      <span aria-hidden="true">&rarr;</span>
+                    </button>
+                    <p class="form-error-text" id="roi-lead-error" role="alert" hidden></p>
+
+                  </form>
+
+                  <div class="tt-success" id="roi-lead-success" role="status" hidden tabindex="-1">
+                    <span class="tt-success__seal" aria-hidden="true">
+                      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle class="tt-success__ring" cx="12" cy="12" r="10" pathLength="1" />
+                        <path class="tt-success__check" d="m9 12 2 2 4-4" pathLength="1" />
+                      </svg>
+                    </span>
+                    <h3>Request Received!</h3>
+                    <p>Our ecommerce growth specialists will analyze your details and send your custom report shortly.</p>
+                    <p class="tt-success__note" id="roi-lead-success-note"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../js/components.min.js" defer></script>
+    <script src="../js/navbar.min.js" defer></script>
+    <script src="../js/api.min.js" defer></script>
+    <script src="roi-calculator.min.js" defer></script>
+    <script src="../js/main.min.js" defer></script>
+  </body>
+</html>

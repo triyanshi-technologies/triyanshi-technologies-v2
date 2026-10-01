@@ -1,0 +1,29 @@
+# Triyanshi Technologies
+
+> Triyanshi Technologies is an IT solutions company delivering ecommerce and enterprise solutions for businesses worldwide, with 250+ projects delivered and 100% client satisfaction.
+
+Triyanshi Technologies designs, builds, and modernizes ecommerce storefronts and enterprise systems, backed by a set of free planning tools for merchants. For inquiries, contact coffee@triyanshitechnologies.com or [schedule a call](https://calendly.com/triyanshitechnologies).
+
+## Services
+
+- [eCommerce Development](https://triyanshitechnologies.com/services/ecommerce): Ecommerce storefront design, build, and optimization.
+- [Enterprise Solutions](https://triyanshitechnologies.com/services/enterprise-solutions): Enterprise-grade software systems for scaling businesses.
+
+## Free Tools
+
+- [eCommerce ROI Calculator](https://triyanshitechnologies.com/tools/roi-calculator): Estimate monthly revenue lift, ROI, and payback period from CRO/AOV improvements.
+- [Site Speed Grader](https://triyanshitechnologies.com/tools/site-speed-grader): Grade a website's Core Web Vitals and get a prioritized fix list.
+- [AI Readiness Assessment](https://triyanshitechnologies.com/tools/ai-readiness-assessment): Assess a business's readiness to adopt AI and automation.
+- [eCommerce Platform Selector](https://triyanshitechnologies.com/tools/platform-selector): Get a recommended ecommerce platform based on business needs.
+
+## Portfolio
+
+- [Shopify Portfolio](https://triyanshitechnologies.com/portfolio/shopify): Shopify and Shopify Plus projects delivered.
+- [BigCommerce Portfolio](https://triyanshitechnologies.com/portfolio/bigcommerce): BigCommerce projects delivered.
+- [Volusion Portfolio](https://triyanshitechnologies.com/portfolio/volusion): Volusion projects delivered.
+- [Webflow Portfolio](https://triyanshitechnologies.com/portfolio/webflow): Webflow projects delivered.
+
+## Company
+
+- [About Us](https://triyanshitechnologies.com/company/about-us): Company background, mission, and team.
+- [Contact Us](https://triyanshitechnologies.com/contact-us/contact-us): Contact form, phone, and email.
