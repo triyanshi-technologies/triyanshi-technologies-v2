@@ -292,11 +292,12 @@ function HeroSlide({ slide, isFirst }: { slide: Slide; isFirst: boolean }) {
         {/*
           The icon row is an <h2>: its text is the logos' alt text ("Shopify, BigCommerce, …").
           Headings only allow inline content, so no list markup; the hidden commas keep the
-          names separate words for crawlers and screen readers.
+          names separate words for crawlers and screen readers. One line at every width: when
+          the column is narrow the logos shrink proportionally (min-w-0) instead of wrapping.
         */}
         <h2
           className={cn(
-            "mb-4 flex flex-wrap items-center max-lg:mb-3 max-md:mb-2.5",
+            "mb-4 flex flex-nowrap items-center max-lg:mb-3 max-md:mb-2.5",
             isPlatform ? "gap-4 max-lg:gap-3.5" : "gap-4",
           )}
         >
@@ -307,7 +308,7 @@ function HeroSlide({ slide, isFirst }: { slide: Slide; isFirst: boolean }) {
                   <span className="sr-only">, </span>
                   <span
                     aria-hidden="true"
-                    className="h-7.5 w-px bg-linear-to-b from-white/0 via-white/32 to-white/0"
+                    className="h-7.5 w-px shrink-0 bg-linear-to-b from-white/0 via-white/32 to-white/0"
                   />
                 </>
               )}
@@ -318,7 +319,7 @@ function HeroSlide({ slide, isFirst }: { slide: Slide; isFirst: boolean }) {
                 height={logo.height}
                 loading={isFirst ? "eager" : "lazy"}
                 className={cn(
-                  "block h-auto w-auto object-contain",
+                  "block h-auto w-auto min-w-0 shrink object-contain",
                   isPlatform
                     ? cn("max-h-20 max-lg:max-h-16.5", logo.className)
                     : "max-h-13 max-w-13 max-lg:max-h-10 max-lg:max-w-10 max-sm:max-h-9 max-sm:max-w-9",
@@ -353,21 +354,26 @@ function HeroSlide({ slide, isFirst }: { slide: Slide; isFirst: boolean }) {
 
 const orbitDots = ["top-[12%] left-[28%]", "top-[54%] right-[2%]", "bottom-[8%] left-[20%]"];
 
-/** Decorative capability card with orbit ring and floating metric cards. */
+/**
+ * Decorative capability card with orbit ring and floating metric cards.
+ * Below 1130px the visual is a compact panel with the metric cards *below*
+ * the capability card: between 1024px and 1130px the hero's right column is
+ * too narrow for the floating layout, where the metrics would overlap it.
+ */
 function SoftwareVisual({ slide }: { slide: Slide }) {
   const [top, bottom] = slide.metrics;
 
   return (
     <div
       aria-hidden="true"
-      className="relative grid w-[min(100%,540px)] place-items-center max-lg:w-[min(100%,500px)] max-lg:grid-cols-2 max-lg:items-stretch max-lg:gap-4 max-lg:p-5.5 max-md:w-full max-md:grid-cols-1 max-md:gap-3.5 max-md:p-4 lg:aspect-[1.1/1]"
+      className="relative grid w-[min(100%,540px)] place-items-center max-[1130px]:w-[min(100%,500px)] max-[1130px]:grid-cols-2 max-[1130px]:items-stretch max-[1130px]:gap-4 max-[1130px]:p-5.5 max-md:w-full max-md:grid-cols-1 max-md:gap-3.5 max-md:p-4 min-[1130px]:aspect-[1.1/1]"
     >
-      {/* Glow disc (circle on desktop, rounded panel below lg) */}
-      <div className="absolute inset-[8%] rounded-full border border-primary/28 bg-linear-135 from-white/12 to-white/3 max-lg:inset-0 max-lg:rounded-3xl max-lg:from-white/7 max-lg:to-white/2" />
-      <div className="absolute inset-[8%] rounded-full bg-radial from-primary/18 to-transparent to-34% max-lg:inset-0 max-lg:rounded-3xl max-lg:bg-radial-[at_50%_24%] max-lg:to-50%" />
+      {/* Glow disc (circle from 1130px, rounded panel below) */}
+      <div className="absolute inset-[8%] rounded-full border border-primary/28 bg-linear-135 from-white/12 to-white/3 max-[1130px]:inset-0 max-[1130px]:rounded-3xl max-[1130px]:from-white/7 max-[1130px]:to-white/2" />
+      <div className="absolute inset-[8%] rounded-full bg-radial from-primary/18 to-transparent to-34% max-[1130px]:inset-0 max-[1130px]:rounded-3xl max-[1130px]:bg-radial-[at_50%_24%] max-[1130px]:to-50%" />
 
       {/* Rotating dashed orbit with glowing dots */}
-      <div className="absolute inset-0 animate-orbit rounded-full border border-dashed border-white/22 max-lg:inset-2.25 max-lg:rounded-[1.35rem] max-lg:opacity-72 max-md:inset-1.5">
+      <div className="absolute inset-0 animate-orbit rounded-full border border-dashed border-white/22 max-[1130px]:inset-2.25 max-[1130px]:rounded-[1.35rem] max-[1130px]:opacity-72 max-md:inset-1.5">
         {orbitDots.map((position) => (
           <span
             key={position}
@@ -380,7 +386,7 @@ function SoftwareVisual({ slide }: { slide: Slide }) {
       </div>
 
       {/* Capability card */}
-      <div className="relative min-h-[52%] w-[74%] rounded-xl border border-white/14 bg-black/72 p-4 shadow-[0_24px_80px_rgb(0_0_0/0.5)] backdrop-blur-[14px] max-lg:z-2 max-lg:col-span-2 max-lg:mx-auto max-lg:min-h-0 max-lg:w-full max-lg:max-w-96 max-md:col-span-1">
+      <div className="relative min-h-[52%] w-[74%] rounded-xl border border-white/14 bg-[#0d0c0b] bg-radial-[at_75%_40%] from-primary/9 to-transparent to-70% p-4 shadow-[0_24px_80px_rgb(0_0_0/0.5)] max-[1130px]:z-2 max-[1130px]:col-span-2 max-[1130px]:mx-auto max-[1130px]:min-h-0 max-[1130px]:w-full max-[1130px]:max-w-96 max-md:col-span-1">
         <p className="mb-4 text-sm font-bold text-surface/90">{slide.cardTitle}</p>
         <ul className="grid gap-3.5 max-sm:gap-3">
           {slide.capabilities.map((item) => (
@@ -403,8 +409,8 @@ function SoftwareVisual({ slide }: { slide: Slide }) {
         </ul>
       </div>
 
-      <MetricCard {...top} className="lg:-top-2.5 lg:right-0" />
-      <MetricCard {...bottom} className="lg:-bottom-11 lg:left-0" />
+      <MetricCard {...top} className="min-[1130px]:-top-2.5 min-[1130px]:right-0" />
+      <MetricCard {...bottom} className="min-[1130px]:-bottom-11 min-[1130px]:left-0" />
     </div>
   );
 }
@@ -413,8 +419,8 @@ function MetricCard({ value, label, className }: { value: string; label: string;
   return (
     <div
       className={cn(
-        "z-2 rounded-lg border border-primary/28 p-4 text-white lg:absolute lg:min-w-38 lg:bg-ink/82 lg:shadow-xl",
-        "max-lg:relative max-lg:flex max-lg:w-full max-lg:flex-col max-lg:justify-between max-lg:gap-1 max-lg:bg-linear-to-b max-lg:from-ink/90 max-lg:to-black/82 max-lg:shadow-[0_20px_48px_rgb(0_0_0/0.28)] max-lg:backdrop-blur-lg max-sm:px-3 max-sm:py-3",
+        "z-2 rounded-lg border border-primary/28 p-4 text-white min-[1130px]:absolute min-[1130px]:min-w-38 min-[1130px]:bg-ink/82 min-[1130px]:shadow-xl",
+        "max-[1130px]:relative max-[1130px]:flex max-[1130px]:w-full max-[1130px]:flex-col max-[1130px]:justify-between max-[1130px]:gap-1 max-[1130px]:bg-linear-to-b max-[1130px]:from-ink/90 max-[1130px]:to-black/82 max-[1130px]:shadow-[0_20px_48px_rgb(0_0_0/0.28)] max-[1130px]:backdrop-blur-lg max-sm:px-3 max-sm:py-3",
         className,
       )}
     >
