@@ -1,6 +1,6 @@
 import "server-only";
-import { createImageUrlBuilder } from "@sanity/image-url";
-import { sanityClient, sanityConfig } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
+import { toImage } from "@/lib/sanity/image";
 import { SHOWCASES_QUERY, type SanityProject, type SanityShowcase } from "@/lib/sanity/queries";
 import type { SampleProject } from "@/content/services";
 import type { ListingKind } from "./listings";
@@ -13,13 +13,8 @@ import type { HomeShowcaseCategory, Platform, Project } from "./types";
  */
 
 const PLACEHOLDER_IMAGE = "/assets/sample-image.webp";
-const imageUrl = createImageUrlBuilder(sanityConfig);
 
 function toProject(doc: SanityProject): Project {
-  const { image } = doc;
-  const asset = image?.asset;
-  const dimensions = asset?.metadata?.dimensions;
-
   return {
     slug: doc.slug,
     name: doc.name,
@@ -30,19 +25,10 @@ function toProject(doc: SanityProject): Project {
     tags: doc.tags ?? [],
     features: doc.features ?? [],
     description: `${(doc.features ?? []).join(", ")} for a ${doc.category.toLowerCase()} project.`,
-    image: asset
-      ? {
-          // Applies the editor's crop; the image loader adds width + format.
-          src: imageUrl.image(image).url(),
-          alt: image.alt || `${doc.name} website`,
-          width: dimensions?.width,
-          height: dimensions?.height,
-          blurDataURL: asset.metadata?.lqip,
-          position: image.hotspot
-            ? `${Math.round(image.hotspot.x * 100)}% ${Math.round(image.hotspot.y * 100)}%`
-            : undefined,
-        }
-      : { src: PLACEHOLDER_IMAGE, alt: `${doc.name} website` },
+    image: toImage(doc.image, `${doc.name} website`) ?? {
+      src: PLACEHOLDER_IMAGE,
+      alt: `${doc.name} website`,
+    },
   };
 }
 
@@ -50,16 +36,11 @@ function toProject(doc: SanityProject): Project {
  * All showcases are fetched in one request. In production builds the result
  * is shared by every page in the worker; in dev it is refetched each time so
  * Studio edits show up on reload.
- *
- * Next's Data Cache keeps static-route fetches indefinitely (keyed by URL),
- * so in dev an unused `_fresh` param gives every request a new key. Builds
- * clear that cache beforehand instead (scripts/clear-fetch-cache.mjs).
  */
 let cached: Promise<Map<string, Project[]>> | undefined;
 
-async function fetchShowcases(dev = false): Promise<Map<string, Project[]>> {
-  const params = dev ? { _fresh: Date.now() } : {};
-  const showcases = await sanityClient.fetch<SanityShowcase[]>(SHOWCASES_QUERY, params);
+async function fetchShowcases(): Promise<Map<string, Project[]>> {
+  const showcases = await sanityFetch<SanityShowcase[]>(SHOWCASES_QUERY);
   return new Map(
     showcases.map((s) => [
       `${s.kind}:${s.key}`,
@@ -70,7 +51,7 @@ async function fetchShowcases(dev = false): Promise<Map<string, Project[]>> {
 }
 
 function showcases() {
-  if (process.env.NODE_ENV !== "production") return fetchShowcases(true);
+  if (process.env.NODE_ENV !== "production") return fetchShowcases();
   return (cached ??= fetchShowcases());
 }
 

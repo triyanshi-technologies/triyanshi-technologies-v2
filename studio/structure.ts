@@ -1,9 +1,11 @@
 import { CaseIcon } from "@sanity/icons/Case";
 import { DocumentsIcon } from "@sanity/icons/Documents";
+import { HomeIcon } from "@sanity/icons/Home";
 import { TagsIcon } from "@sanity/icons/Tags";
 import type { StructureResolver } from "sanity/structure";
+import { HOME_DOCUMENTS } from "./schemaTypes/home";
 
-/** Studio sidebar: Projects, then the two groups of showcases. */
+/** Studio sidebar: Projects, the two groups of showcases, then the homepage sections. */
 export const structure: StructureResolver = (S) =>
   S.list()
     .title("Content")
@@ -29,5 +31,22 @@ export const structure: StructureResolver = (S) =>
             .schemaType("showcase")
             .filter('_type == "showcase" && kind == "service"')
             .defaultOrdering([{ field: "title", direction: "asc" }]),
+        ),
+      S.divider(),
+      S.listItem()
+        .title("Homepage")
+        .icon(HomeIcon)
+        .child(
+          S.list()
+            .title("Homepage")
+            .items(
+              Object.values(HOME_DOCUMENTS).map(({ id, type, title }) =>
+                S.listItem()
+                  .id(id)
+                  .title(title)
+                  .schemaType(type)
+                  .child(S.document().schemaType(type).documentId(id).title(title)),
+              ),
+            ),
         ),
     ]);

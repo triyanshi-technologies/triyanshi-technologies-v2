@@ -24,3 +24,14 @@ export const sanityClient = createClient({
   useCdn: false,
   perspective: "published",
 });
+
+/**
+ * Build-time query. Next's Data Cache keeps static-route fetches indefinitely
+ * (keyed by URL), so in dev an unused `_fresh` param gives every request a new
+ * key and Studio edits show up on reload. Builds clear that cache beforehand
+ * instead (scripts/clear-fetch-cache.mjs).
+ */
+export function sanityFetch<T>(query: string): Promise<T> {
+  const params = process.env.NODE_ENV === "production" ? {} : { _fresh: Date.now() };
+  return sanityClient.fetch<T>(query, params);
+}

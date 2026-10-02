@@ -1,9 +1,12 @@
 import { Eyebrow, Highlight } from "@/components/ui/layout";
-import { testimonials } from "@/content/testimonials";
+import { getTestimonials } from "@/lib/home";
 import { TestimonialsSlider } from "./testimonials-slider";
 
-/** "Trust That Speaks For Itself" — client testimonial slider with laptop mockup. */
-export function TestimonialsSection() {
+/** "Trust That Speaks For Itself" — client testimonial slider with laptop mockup (Sanity: Homepage → Testimonials). */
+export async function TestimonialsSection() {
+  const testimonials = await getTestimonials();
+  if (!testimonials.length) return null;
+
   return (
     <section id="tt-review" className="overflow-hidden bg-surface py-12.5 sm:py-15 lg:py-22.5">
       <TestimonialsSlider

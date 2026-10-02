@@ -1,15 +1,18 @@
 import Image from "next/image";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Section, SectionTitle } from "@/components/ui/layout";
-import { appPartners } from "@/content/app-partners";
+import { getAppPartners } from "@/lib/home";
 import { cn } from "@/lib/cn";
 import { cardHover } from "@/lib/hover";
 import { CarouselNav } from "./carousel-nav";
 
 const GRID_ID = "apps-grid";
 
-/** "Our eCommerce App Partners": 4-column grid on desktop, swipeable carousel below 1024px. */
-export function AppPartners() {
+/** "Our eCommerce App Partners": 4-column grid on desktop, swipeable carousel below 1024px (Sanity: Homepage → App partners). */
+export async function AppPartners() {
+  const appPartners = await getAppPartners();
+  if (!appPartners.length) return null;
+
   return (
     <Section id="apps" tone="light" aria-labelledby="apps-heading">
       <Reveal>
@@ -29,7 +32,7 @@ export function AppPartners() {
         {appPartners.map((app) => (
           <RevealItem
             as="li"
-            key={app.name}
+            key={app.id}
             className={cn(
               "grid min-h-50 shrink-0 basis-[85%] snap-start content-between gap-4 rounded-xl border border-line bg-white p-5 sm:basis-[calc((100%-1rem)/2.3)] lg:min-h-0",
               cardHover,
@@ -37,11 +40,12 @@ export function AppPartners() {
           >
             <div className="flex min-w-0 items-center gap-3.5">
               <Image
-                src={`/assets/app-logo/${app.logo}`}
+                src={app.logo.src}
                 alt=""
                 width={56}
                 height={56}
                 className="size-14 shrink-0 rounded-lg border border-line bg-white object-cover"
+                style={{ objectPosition: app.logo.position }}
               />
               <div className="flex min-w-0 flex-col">
                 <h3 className="text-base leading-tight text-ink">{app.name}</h3>

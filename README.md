@@ -4,7 +4,7 @@ Marketing site for [triyanshitechnologies.com](https://triyanshitechnologies.com
 
 - **Stack:** Next.js 16 (App Router, Turbopack), React 19, TypeScript, Tailwind CSS v4.
 - **Build output:** a fully static export (`out/`) served by Apache over FTP.
-- **CMS:** portfolio projects only, in Sanity (`studio/`, live at <https://triyanshi.sanity.studio>).
+- **CMS:** portfolio projects and the homepage brand logos, testimonials and app partners, in Sanity (`studio/`, live at <https://triyanshi.sanity.studio>).
 - **Everything else** lives in the repo under `src/content/`.
 
 ## Quick start
@@ -17,15 +17,15 @@ npm run dev                  # http://localhost:3000
 
 Node 24 is used in CI; any current LTS works locally.
 
-| Script                  | What it does                                                                                            |
-| ----------------------- | ------------------------------------------------------------------------------------------------------- |
-| `npm run dev`           | Dev server. `predev` clears Next's fetch cache and generates responsive images.                         |
-| `npm run build`         | Static export to `out/`, then fixes RSC segment files (Windows) and checks every asset reference.       |
-| `npm start`             | Serves `out/` locally.                                                                                  |
-| `npm run lint`          | ESLint (Next core-web-vitals + TypeScript).                                                             |
-| `npm run typecheck`     | `tsc --noEmit`.                                                                                         |
-| `npm run images`        | Regenerates `public/_img/` (WebP variants of everything in `public/assets/`).                           |
-| `npm run sanity:import` | One-off seed of the legacy projects into Sanity (needs `SANITY_API_WRITE_TOKEN`; `--force` overwrites). |
+| Script                  | What it does                                                                                        |
+| ----------------------- | --------------------------------------------------------------------------------------------------- |
+| `npm run dev`           | Dev server. `predev` clears Next's fetch cache and generates responsive images.                     |
+| `npm run build`         | Static export to `out/`, then fixes RSC segment files (Windows) and checks every asset reference.   |
+| `npm start`             | Serves `out/` locally.                                                                              |
+| `npm run lint`          | ESLint (Next core-web-vitals + TypeScript).                                                         |
+| `npm run typecheck`     | `tsc --noEmit`.                                                                                     |
+| `npm run images`        | Regenerates `public/_img/` (WebP variants of everything in `public/assets/`).                       |
+| `npm run sanity:import` | Seeds pre-CMS content into Sanity (needs `SANITY_API_WRITE_TOKEN`). See `scripts/sanity-import.ts`. |
 
 ## Project structure
 
@@ -97,6 +97,7 @@ Wrap content in `<Reveal>`, or use `<RevealGroup>` with `<RevealItem>` children 
 | What                                                          | Where                                  |
 | ------------------------------------------------------------- | -------------------------------------- |
 | Portfolio projects, their order per page                      | Sanity Studio (see `studio/README.md`) |
+| Homepage brand logos, testimonials, app partners              | Sanity Studio → Homepage               |
 | Service pages, portfolio page copy, jobs, technologies, tools | `src/content/*.ts`                     |
 | Navigation and footer (hidden items are kept as comments)     | `src/content/navigation.ts`            |
 | Contact details, socials, analytics IDs                       | `src/lib/site.ts`                      |
@@ -133,7 +134,7 @@ Sanity is read at build time only; the dataset is public and the site uses no to
 2. In [sanity.io/manage](https://www.sanity.io/manage) → project `eb7crcip` → API → Webhooks, add a webhook:
    - **URL:** `https://api.github.com/repos/<owner>/<repo>/dispatches`
    - **Dataset:** `production`. **Trigger on:** create, update, delete.
-   - **Filter:** `_type in ["project", "showcase"]`
+   - **Filter:** `_type in ["project", "showcase", "homeBrands", "homeTestimonials", "homeAppPartners"]`
    - **Projection:** `{"event_type": "sanity-publish"}`
    - **HTTP method:** `POST`
    - **Headers:** `Authorization: Bearer <token>`, `Accept: application/vnd.github+json`

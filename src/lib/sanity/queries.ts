@@ -1,3 +1,11 @@
+/** Image fields + asset metadata, for toImage() in src/lib/sanity/image.ts. */
+const IMAGE = /* groq */ `{
+  alt,
+  hotspot,
+  crop,
+  asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } }
+}`;
+
 /** Every showcase with its projects (in editor-defined order) and image metadata. */
 export const SHOWCASES_QUERY = /* groq */ `
   *[_type == "showcase"]{
@@ -11,15 +19,26 @@ export const SHOWCASES_QUERY = /* groq */ `
       platform,
       features,
       tags,
-      image{
-        alt,
-        hotspot,
-        crop,
-        asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } }
-      }
+      image${IMAGE}
     }
   }
 `;
+
+/** Homepage sections (fixed document IDs, see studio/schemaTypes/home.ts). */
+export const HOME_QUERY = /* groq */ `{
+  "brands": *[_id == "home-brands"][0]{
+    "top": top[]{ _key, name, shape, logo${IMAGE} },
+    "bottom": bottom[]{ _key, name, shape, logo${IMAGE} }
+  },
+  "testimonials": *[_id == "home-testimonials"][0].items[]{
+    _key, name, role, avatarColor, rating, quote, companyName, platform, highlightBadge, badges,
+    companyLogo${IMAGE},
+    screenshot${IMAGE}
+  },
+  "appPartners": *[_id == "home-app-partners"][0].items[]{
+    _key, name, category, description, logo${IMAGE}
+  }
+}`;
 
 export type SanityImage = {
   alt?: string;
@@ -48,4 +67,41 @@ export type SanityShowcase = {
   key: string;
   /** Unpublished/deleted references resolve to null. */
   projects: (SanityProject | null)[] | null;
+};
+
+export type SanityBrandLogo = {
+  _key: string;
+  name: string;
+  shape?: "default" | "icon" | "wide" | null;
+  logo: SanityImage | null;
+};
+
+export type SanityTestimonial = {
+  _key: string;
+  name: string;
+  role: string;
+  avatarColor: string;
+  rating: number;
+  quote: string;
+  companyName: string;
+  companyLogo: SanityImage | null;
+  screenshot: SanityImage | null;
+  platform?: "shopify" | "bigcommerce" | "volusion" | null;
+  highlightBadge?: string | null;
+  badges?: string[] | null;
+};
+
+export type SanityAppPartner = {
+  _key: string;
+  name: string;
+  category: string;
+  description: string;
+  logo: SanityImage | null;
+};
+
+/** Missing documents or empty lists come back as null. */
+export type SanityHome = {
+  brands: { top: SanityBrandLogo[] | null; bottom: SanityBrandLogo[] | null } | null;
+  testimonials: SanityTestimonial[] | null;
+  appPartners: SanityAppPartner[] | null;
 };

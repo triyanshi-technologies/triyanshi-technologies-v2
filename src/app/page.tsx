@@ -27,11 +27,13 @@ export default function HomePage() {
 
       {/*
         Legacy "What Our Clients Say" section — disabled on the legacy site and
-        replaced by <TestimonialsSection />. Its quote is kept in content/testimonials.ts.
+        replaced by <TestimonialsSection /> (testimonials are edited in Sanity).
 
         <Section>
           <SectionTitle eyebrow="Testimonials" title="What Our Clients Say" />
           …single rotating quote with author avatars…
+          "Triyanshi Technologies completely transformed our digital presence. Their attention to
+          detail and modern design approach helped us increase user retention by 40%." — CTO, Finova Corp
         </Section>
       */}
       <TestimonialsSection />

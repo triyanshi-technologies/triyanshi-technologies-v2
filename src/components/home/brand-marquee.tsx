@@ -2,17 +2,21 @@ import Image from "next/image";
 import { Reveal } from "@/components/motion/reveal";
 import { Eyebrow } from "@/components/ui/layout";
 import { Container } from "@/components/ui/layout";
-import { brandStripBottom, brandStripTop, type BrandLogo } from "@/content/brands";
+import { getBrandStrips } from "@/lib/home";
+import type { BrandLogo, LogoShape } from "@/lib/home/types";
 import { cn } from "@/lib/cn";
 
-const logoSize: Record<NonNullable<BrandLogo["shape"]> | "default", string> = {
+const logoSize: Record<LogoShape | "default", string> = {
   default: "max-h-10.5 max-w-33 md:max-h-12.5 md:max-w-42 lg:max-h-14 lg:max-w-47.5",
   icon: "max-h-9.5 max-w-15 md:max-h-11.5 md:max-w-18.5 lg:max-h-13 lg:max-w-21.5",
   wide: "max-h-8.5 max-w-37.5 md:max-h-10.5 md:max-w-49 lg:max-h-11.5 lg:max-w-55.5",
 };
 
-/** "Brands That Believe In Us" — two infinite logo strips scrolling in opposite directions. */
-export function BrandMarquee() {
+/** "Brands That Believe In Us" — two infinite logo strips scrolling in opposite directions (Sanity: Homepage → Brand logos). */
+export async function BrandMarquee() {
+  const { top, bottom } = await getBrandStrips();
+  if (!top.length && !bottom.length) return null;
+
   return (
     <section className="overflow-hidden border-b border-black/5 bg-white pt-20 pb-12">
       <Container>
@@ -20,8 +24,8 @@ export function BrandMarquee() {
           <Eyebrow>Partnerships</Eyebrow>
           <h2 className="mb-8 text-heading-md text-ink">Brands That Believe In Us</h2>
         </Reveal>
-        <MarqueeRow logos={brandStripTop} />
-        <MarqueeRow logos={brandStripBottom} reverse />
+        {top.length > 0 && <MarqueeRow logos={top} />}
+        {bottom.length > 0 && <MarqueeRow logos={bottom} reverse />}
       </Container>
     </section>
   );
@@ -41,11 +45,11 @@ function MarqueeRow({ logos, reverse = false }: { logos: BrandLogo[]; reverse?: 
           <ul key={copy} aria-hidden={copy > 0 || undefined} className="flex shrink-0 items-center gap-4">
             {logos.map((logo) => (
               <li
-                key={logo.file}
+                key={logo.id}
                 className="flex h-18 w-40 shrink-0 items-center justify-center md:h-21 md:w-52.5 lg:h-24 lg:w-60"
               >
                 <Image
-                  src={`/assets/brands/${logo.file}`}
+                  src={logo.logo.src}
                   alt={copy === 0 ? logo.name : ""}
                   width={190}
                   height={56}

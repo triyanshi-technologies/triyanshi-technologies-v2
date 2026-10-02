@@ -3,13 +3,14 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDownIcon } from "@/components/ui/icons";
-import type { Testimonial } from "@/content/testimonials";
+import type { Testimonial } from "@/lib/home/types";
 import { cx } from "@/lib/cx";
 import { iconButtonHover } from "@/lib/hover";
 
 const AUTOPLAY_MS = 4500;
 const SWIPE_PX = 50;
 
+/** Keep in sync with TESTIMONIAL_PLATFORMS in studio/schemaTypes/home.ts. */
 const PLATFORM_LOGOS = {
   shopify: { src: "/assets/platforms/shopify.svg", alt: "Shopify", width: 500, height: 143 },
   bigcommerce: { src: "/assets/platforms/bigcommerce.svg", alt: "BigCommerce", width: 490, height: 118 },
@@ -137,7 +138,7 @@ export function TestimonialsSlider({
           onTouchEnd={onTouchEnd}
         >
           {testimonials.map((t, i) => (
-            <TestimonialCard key={t.name} testimonial={t} active={i === current} index={i} total={count} />
+            <TestimonialCard key={t.id} testimonial={t} active={i === current} index={i} total={count} />
           ))}
         </div>
       </div>
@@ -167,9 +168,9 @@ export function TestimonialsSlider({
             >
               {testimonials.map((t, i) => (
                 <Image
-                  key={t.screenshot}
-                  src={t.screenshot}
-                  alt={`${t.company.name} website preview`}
+                  key={t.id}
+                  src={t.screenshot.src}
+                  alt={t.screenshot.alt}
                   width={1904}
                   height={945}
                   sizes="(min-width: 1024px) 300px, 55vw"
@@ -190,7 +191,7 @@ export function TestimonialsSlider({
         <div className="flex items-center justify-center gap-2.5">
           {testimonials.map((t, i) => (
             <button
-              key={t.name}
+              key={t.id}
               type="button"
               aria-label={`Go to slide ${i + 1}`}
               aria-current={i === current || undefined}
@@ -297,8 +298,8 @@ function TestimonialCard({ testimonial: t, active, index, total }: CardProps) {
           <p className="mt-0.5 text-xs font-medium">{t.role}</p>
         </div>
         <Image
-          src={t.company.logo}
-          alt={t.company.name}
+          src={t.company.logo.src}
+          alt={t.company.logo.alt}
           width={120}
           height={32}
           className="ml-auto h-auto max-h-6.5 w-auto max-w-30 shrink-0 object-contain sm:max-h-8"
@@ -318,20 +319,17 @@ function TestimonialCard({ testimonial: t, active, index, total }: CardProps) {
             />
           </span>
         )}
-        {t.badges.map((badge) => {
-          const label = typeof badge === "string" ? badge : badge.label;
-          return (
-            <span
-              key={label}
-              className={cx(
-                "inline-flex items-center rounded-full border border-primary/25 bg-primary/8 px-3 py-1.25 text-xs leading-none whitespace-nowrap sm:px-4 sm:py-2",
-                typeof badge === "string" ? "font-semibold text-primary-text" : "font-bold text-black",
-              )}
-            >
-              {label}
-            </span>
-          );
-        })}
+        {t.badges.map((badge) => (
+          <span
+            key={badge.label}
+            className={cx(
+              "inline-flex items-center rounded-full border border-primary/25 bg-primary/8 px-3 py-1.25 text-xs leading-none whitespace-nowrap sm:px-4 sm:py-2",
+              badge.emphasis ? "font-bold text-black" : "font-semibold text-primary-text",
+            )}
+          >
+            {badge.label}
+          </span>
+        ))}
       </div>
     </article>
   );
