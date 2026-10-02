@@ -63,7 +63,7 @@ export function ProjectGridCard({ project, index = 0, linked = true }: ProjectGr
         <div className="flex flex-wrap items-baseline gap-2">
           <h3 className="text-lg leading-snug font-bold text-ink">{project.name}</h3>
           {project.category && (
-            <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.75 text-xs font-bold tracking-wide text-primary-text uppercase">
+            <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.75 text-xs font-bold tracking-wide text-primary uppercase">
               {project.category}
             </span>
           )}
@@ -84,7 +84,7 @@ export function ProjectGridCard({ project, index = 0, linked = true }: ProjectGr
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative z-1 min-w-0 truncate text-xs font-semibold text-ink hover:text-primary-text"
+              className="relative z-1 min-w-0 truncate text-xs font-semibold text-ink"
             >
               {project.domain}
             </a>
@@ -97,7 +97,7 @@ export function ProjectGridCard({ project, index = 0, linked = true }: ProjectGr
               <Link
                 href={CASE_STUDY_HREF}
                 className={cn(
-                  "inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-primary-text",
+                  "inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-primary",
                   stretched,
                 )}
               >
@@ -110,7 +110,7 @@ export function ProjectGridCard({ project, index = 0, linked = true }: ProjectGr
                 rel="noopener noreferrer"
                 aria-label={`View live site for ${project.name}`}
                 className={cn(
-                  "inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-primary-text",
+                  "inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-primary",
                   stretched,
                 )}
               >
