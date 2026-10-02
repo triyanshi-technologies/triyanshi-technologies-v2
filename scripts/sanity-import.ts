@@ -1,10 +1,8 @@
 /*
  * One-time import of the pre-CMS content into Sanity.
  *
- *   npm run sanity:import                  everything; creates missing documents only
- *   npm run sanity:import -- projects      projects + showcases only
- *   npm run sanity:import -- home          homepage sections only (brand logos, testimonials, app partners)
- *   npm run sanity:import -- home --force  overwrite those documents with the seed data
+ *   npm run sanity:import              projects + showcases; creates missing documents only
+ *   npm run sanity:import -- --force   overwrite them with the seed data
  *
  * Projects (scripts/seed/legacy-projects.ts):
  * - Uploads each screenshot from scripts/seed/images.
@@ -12,12 +10,12 @@
  * - Creates one `showcase` document per listing in src/lib/projects/listings.ts,
  *   with projects in the legacy order (membership position, else project position).
  *
- * Homepage (scripts/seed/home-content.ts): one document per section with a
- * fixed ID, images uploaded from public/.
+ * The homepage sections (brand logos, testimonials, app partners) were seeded
+ * the same way once and are now maintained only in the Studio.
  *
  * Images are deduplicated by SHA-1, so re-runs don't upload again. Without
  * --force existing documents are left alone, but a document deleted in the
- * Studio (e.g. a project) is created again, so pass a scope when re-running.
+ * Studio (e.g. a project) is created again.
  *
  * Requires SANITY_API_WRITE_TOKEN (Editor) in .env.local.
  */
@@ -28,19 +26,9 @@ import path from "node:path";
 import { createClient, type IdentifiedSanityDocumentStub } from "@sanity/client";
 import { LISTINGS, projectId, showcaseId } from "../src/lib/projects/listings.ts";
 import type { ProjectRecord } from "../src/lib/projects/types.ts";
-import {
-  appPartners,
-  brandStripBottom,
-  brandStripTop,
-  testimonials,
-  type BrandSeed,
-} from "./seed/home-content.ts";
 import { projectRecords } from "./seed/legacy-projects.ts";
 
 const FORCE = process.argv.includes("--force");
-const SCOPES = ["projects", "home"] as const;
-const requested = SCOPES.filter((scope) => process.argv.includes(scope));
-const scopes = new Set(requested.length ? requested : SCOPES);
 const {
   NEXT_PUBLIC_SANITY_PROJECT_ID,
   NEXT_PUBLIC_SANITY_DATASET,
@@ -109,74 +97,6 @@ function orderedSlugs(list: "pages" | "services", listingKey: string): string[] 
     .map((entry) => entry.slug);
 }
 
-/** Image field value for a file in public/ (e.g. "/assets/brands/x.webp"). Throws if the file is missing. */
-async function publicImage(publicPath: string, alt?: string) {
-  const assetId = await uploadImage(path.join("public", publicPath));
-  if (!assetId) throw new Error(`Image not found: public${publicPath}`);
-  return { _type: "image", asset: { _type: "reference", _ref: assetId }, ...(alt && { alt }) };
-}
-
-/** Maps sequentially (keeps the API happy and logs readable), with a progress line. */
-async function mapSequential<In, Out>(label: string, items: In[], map: (item: In) => Promise<Out>) {
-  const out: Out[] = [];
-  for (const [i, item] of items.entries()) {
-    out.push(await map(item));
-    process.stdout.write(`\r  ${label} ${i + 1}/${items.length}`);
-  }
-  console.log();
-  return out;
-}
-
-function brandItems(row: string, brands: BrandSeed[]) {
-  return mapSequential(`${row} brand logos`, brands, async (brand) => ({
-    _key: key(brand.logo),
-    _type: "brandLogo",
-    name: brand.name,
-    logo: await publicImage(brand.logo),
-    shape: brand.shape ?? "default",
-  }));
-}
-
-/** Homepage sections (fixed IDs read by src/lib/home). */
-async function homeDocuments(): Promise<IdentifiedSanityDocumentStub[]> {
-  const top = await brandItems("top", brandStripTop);
-  const bottom = await brandItems("bottom", brandStripBottom);
-
-  const testimonialItems = await mapSequential("testimonials", testimonials, async (t) => {
-    const highlight = t.badges.find((badge) => typeof badge !== "string");
-    return {
-      _key: key(`${t.name}:${t.company.name}`),
-      _type: "testimonial",
-      name: t.name,
-      role: t.role,
-      avatarColor: t.avatarColor,
-      rating: t.rating,
-      quote: t.quote,
-      companyName: t.company.name,
-      companyLogo: await publicImage(t.company.logo),
-      screenshot: await publicImage(t.screenshot, `${t.company.name} website preview`),
-      ...(t.platform && { platform: t.platform }),
-      ...(highlight && { highlightBadge: highlight.label }),
-      badges: t.badges.filter((badge) => typeof badge === "string"),
-    };
-  });
-
-  const appItems = await mapSequential("app partners", appPartners, async (app) => ({
-    _key: key(app.name),
-    _type: "appPartner",
-    name: app.name,
-    category: app.category,
-    logo: await publicImage(app.logo),
-    description: app.description,
-  }));
-
-  return [
-    { _id: "home-brands", _type: "homeBrands", top, bottom },
-    { _id: "home-testimonials", _type: "homeTestimonials", items: testimonialItems },
-    { _id: "home-app-partners", _type: "homeAppPartners", items: appItems },
-  ];
-}
-
 type Write = (doc: IdentifiedSanityDocumentStub) => unknown;
 
 /** Projects + showcases. */
@@ -220,15 +140,14 @@ async function importProjects(write: Write) {
 
 async function main() {
   console.log(
-    `Importing ${[...scopes].join(" + ")} into ${NEXT_PUBLIC_SANITY_PROJECT_ID}/${NEXT_PUBLIC_SANITY_DATASET}${FORCE ? " (force)" : ""}`,
+    `Importing projects into ${NEXT_PUBLIC_SANITY_PROJECT_ID}/${NEXT_PUBLIC_SANITY_DATASET}${FORCE ? " (force)" : ""}`,
   );
 
   // Everything is written in one transaction.
   const tx = client.transaction();
   const write: Write = (doc) => (FORCE ? tx.createOrReplace(doc) : tx.createIfNotExists(doc));
 
-  if (scopes.has("projects")) await importProjects(write);
-  if (scopes.has("home")) for (const doc of await homeDocuments()) write(doc);
+  await importProjects(write);
 
   const result = await tx.commit({ visibility: "async" });
   console.log(
