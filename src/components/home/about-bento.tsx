@@ -67,7 +67,6 @@ export function AboutBento() {
         <Reveal
           className={`${tile} flex flex-col justify-center border border-primary/16 bg-ink-deep p-11 tone-dark shadow-[0_20px_50px_rgb(0_0_0/0.18)] max-sm:p-8 sm:col-span-2 xl:col-span-3`}
         >
-          {/* Warm glow, arc and dotted texture */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 bg-radial-[circle_at_left_bottom] from-primary/14 to-transparent to-42%"
