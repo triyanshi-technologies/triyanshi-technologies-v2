@@ -6,7 +6,6 @@ Triyanshi Technologies designs, builds, and modernizes ecommerce storefronts and
 
 ## Services
 
-- [All Services](https://triyanshitechnologies.com/services): Every service, grouped by eCommerce, Enterprise Solutions, and Compliance.
 - [eCommerce Development](https://triyanshitechnologies.com/services/ecommerce): Ecommerce storefront design, build, and optimization.
 - [Enterprise Solutions](https://triyanshitechnologies.com/services/enterprise-solutions): Enterprise-grade software systems for scaling businesses.
 

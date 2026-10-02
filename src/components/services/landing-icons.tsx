@@ -672,16 +672,3 @@ export const RiskDocumentIcon = (props: IconProps) => (
     <line x1="16" y1="17" x2="8" y2="17" />
   </svg>
 );
-
-export const OrbitLinesSvg = (props: IconProps) => (
-  <svg
-    aria-hidden="true"
-    focusable="false"
-
-    viewBox="0 0 400 400"
-    fill="none"
-    {...props}
-  >
-    <circle cx="200" cy="140" r="140" stroke="#e5e5e5" strokeWidth="2" strokeDasharray="6 6" />
-  </svg>
-);

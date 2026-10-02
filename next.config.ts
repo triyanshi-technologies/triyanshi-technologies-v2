@@ -2,10 +2,10 @@ import type { NextConfig } from "next";
 import { deviceSizes, imageSizes } from "./image-sizes.mjs";
 
 /**
- * Static export: `next build` writes plain HTML/CSS/JS to `out/`, which the
- * GitHub Action uploads to the Apache host over FTP. Keep this site free of
- * server-only features (API routes, ISR, redirects, headers, proxy) — those
- * live in public/.htaccess or on the separate API server instead.
+ * Static export: `next build` writes plain HTML/CSS/JS to `out/`, which Vercel
+ * serves as static files. Keep this site free of server-only features (API
+ * routes, ISR, proxy) — redirects and headers live in vercel.json, form and
+ * tool endpoints on the separate API server.
  */
 const nextConfig: NextConfig = {
   output: "export",

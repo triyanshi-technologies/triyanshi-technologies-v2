@@ -1,7 +1,7 @@
 /*
  * Responsive image widths — shared by next.config.ts (srcset generation)
  * and scripts/optimize-images.mjs (pre-generated WebP variants).
- * Keep the list short: every width is a file per image on the FTP host.
+ * Keep the list short: every width is one more pre-generated file per image.
  */
 
 /** Widths for images with a `sizes` prop (full/partial-width layouts). */

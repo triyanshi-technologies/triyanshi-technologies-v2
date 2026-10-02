@@ -289,8 +289,12 @@ function HeroSlide({ slide, isFirst }: { slide: Slide; isFirst: boolean }) {
           {slide.title}
         </Title>
 
-        <ul
-          aria-label={isPlatform ? "Platforms" : "Expertise"}
+        {/*
+          The icon row is an <h2>: its text is the logos' alt text ("Shopify, BigCommerce, …").
+          Headings only allow inline content, so no list markup; the hidden commas keep the
+          names separate words for crawlers and screen readers.
+        */}
+        <h2
           className={cn(
             "mb-4 flex flex-wrap items-center max-lg:mb-3 max-md:mb-2.5",
             isPlatform ? "gap-4 max-lg:gap-3.5" : "gap-4",
@@ -299,29 +303,30 @@ function HeroSlide({ slide, isFirst }: { slide: Slide; isFirst: boolean }) {
           {slide.logos.map((logo, i) => (
             <Fragment key={logo.src}>
               {i > 0 && (
-                <li
-                  aria-hidden="true"
-                  className="h-7.5 w-px bg-linear-to-b from-white/0 via-white/32 to-white/0"
-                />
+                <>
+                  <span className="sr-only">, </span>
+                  <span
+                    aria-hidden="true"
+                    className="h-7.5 w-px bg-linear-to-b from-white/0 via-white/32 to-white/0"
+                  />
+                </>
               )}
-              <li>
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={logo.width}
-                  height={logo.height}
-                  loading={isFirst ? "eager" : "lazy"}
-                  className={cn(
-                    "block h-auto w-auto object-contain",
-                    isPlatform
-                      ? cn("max-h-20 max-lg:max-h-16.5", logo.className)
-                      : "max-h-13 max-w-13 max-lg:max-h-10 max-lg:max-w-10 max-sm:max-h-9 max-sm:max-w-9",
-                  )}
-                />
-              </li>
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={logo.width}
+                height={logo.height}
+                loading={isFirst ? "eager" : "lazy"}
+                className={cn(
+                  "block h-auto w-auto object-contain",
+                  isPlatform
+                    ? cn("max-h-20 max-lg:max-h-16.5", logo.className)
+                    : "max-h-13 max-w-13 max-lg:max-h-10 max-lg:max-w-10 max-sm:max-h-9 max-sm:max-w-9",
+                )}
+              />
             </Fragment>
           ))}
-        </ul>
+        </h2>
 
         <p className="mb-6 max-w-150 text-xl text-surface/90 max-lg:max-w-none max-md:text-base">
           {slide.subtitle}
