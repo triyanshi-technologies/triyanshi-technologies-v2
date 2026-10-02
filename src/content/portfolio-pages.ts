@@ -518,7 +518,11 @@ export const getPortfolioPage = (slug: string) => portfolioPages.find((p) => p.s
 
 /** Portfolio hub (/portfolio) groups, in display order. */
 export const portfolioHubGroups = [
-  { title: "eCommerce", slugs: ["shopify", "bigcommerce", "volusion", "webflow", "enterprise-solution"] },
+  // "enterprise-solution" removed from the hub (not in use); its URL 301s to /portfolio (vercel.json).
+  {
+    title: "eCommerce",
+    slugs: ["shopify", "bigcommerce", "volusion", "webflow" /* , "enterprise-solution" */],
+  },
 ];
 
 export const portfolioHubSeo = {

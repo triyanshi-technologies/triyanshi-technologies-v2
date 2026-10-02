@@ -9,6 +9,9 @@
  * So commenting a link out (navigation or page) removes its target from the
  * sitemap and closes it to crawlers at the next build; restoring the link
  * reverses both. Unlinked pages stay reachable by URL for visitors.
+ *
+ * URLs redirected in vercel.json are left out of both files: crawlers must
+ * be allowed to fetch them, or they'd never see the 301.
  */
 import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -46,7 +49,8 @@ function allRoutes(dir = OUT) {
   return routes;
 }
 
-const routes = new Set(allRoutes());
+const redirected = new Set(JSON.parse(readFileSync("vercel.json", "utf8")).redirects.map((r) => r.source));
+const routes = new Set(allRoutes().filter((route) => !redirected.has(route)));
 const fileFor = (route) => path.join(OUT, route === "/" ? "index.html" : `${route.slice(1)}.html`);
 
 /** Internal page links in a page's HTML, as normalized routes. */
