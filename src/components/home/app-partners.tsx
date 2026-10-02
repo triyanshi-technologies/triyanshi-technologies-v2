@@ -27,7 +27,7 @@ export async function AppPartners() {
       <RevealGroup
         as="ul"
         id={GRID_ID}
-        className="flex snap-x snap-mandatory [scrollbar-width:none] gap-4 overflow-x-auto overscroll-x-contain lg:grid lg:grid-cols-4 lg:overflow-visible [&::-webkit-scrollbar]:hidden"
+        className="-mx-4 -mt-3 -mb-10 flex snap-x snap-mandatory scroll-px-4 [scrollbar-width:none] gap-4 overflow-x-auto overscroll-x-contain px-4 pt-3 pb-10 lg:grid lg:grid-cols-4 lg:overflow-visible [&::-webkit-scrollbar]:hidden"
       >
         {appPartners.map((app) => (
           <RevealItem

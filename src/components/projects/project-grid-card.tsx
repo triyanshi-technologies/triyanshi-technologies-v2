@@ -13,7 +13,8 @@ type ProjectGridCardProps = {
   index?: number;
   /**
    * Make the whole card clickable (live site, or the case study for sample
-   * projects). Off for static showcases such as eCommerce "Selected Work".
+   * projects). Off for static showcases such as eCommerce "Selected Work";
+   * the hover effect applies either way, like every other card on the site.
    */
   linked?: boolean;
 };
@@ -43,7 +44,7 @@ export function ProjectGridCard({ project, index = 0, linked = true }: ProjectGr
       style={{ animationDelay: `${index * 70}ms` }}
       className={cn(
         "group/link relative flex animate-card-up flex-col rounded-xl border border-line bg-white",
-        linked && cardHover,
+        cardHover,
       )}
     >
       <div className="relative aspect-[1904/945] overflow-hidden rounded-t-[calc(var(--radius-xl)-1px)] border-b border-line bg-surface">

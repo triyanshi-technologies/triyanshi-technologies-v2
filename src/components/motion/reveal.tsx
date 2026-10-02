@@ -71,26 +71,31 @@ export function Reveal({
 
 type GroupProps = Omit<RevealProps, "variant" | "delay">;
 
-/** Parent that triggers its <RevealItem> children together, staggered 100ms apart. */
+/**
+ * Wrapper for a list of <RevealItem>s. Each item reveals on its own as it
+ * scrolls into view; items that appear together (a row of cards, a carousel
+ * slide) are staggered 100ms apart by <RevealScript />. That works for any
+ * length and any number of columns, unlike a fixed nth-child delay table.
+ */
 export function RevealGroup({ as: Tag = "div", className, children, ...props }: GroupProps) {
   return (
-    <Tag data-reveal="" suppressHydrationWarning className={cn("group/reveal", className)} {...props}>
+    <Tag className={className} {...props}>
       {children}
     </Tag>
   );
 }
 
-/* Stagger: the nth sibling waits n × 100ms (legacy .reveal-group behaviour, first 6 items). */
-const itemBase = [
-  "opacity-0 group-data-revealed/reveal:animate-reveal-item group-data-revealed/reveal:opacity-100",
-  "group-data-revealed/reveal:nth-1:[animation-delay:100ms] group-data-revealed/reveal:nth-2:[animation-delay:200ms]",
-  "group-data-revealed/reveal:nth-3:[animation-delay:300ms] group-data-revealed/reveal:nth-4:[animation-delay:400ms]",
-  "group-data-revealed/reveal:nth-5:[animation-delay:500ms] group-data-revealed/reveal:nth-6:[animation-delay:600ms]",
-].join(" ");
+/*
+ * Fades up when the item itself enters the viewport. The stagger delay comes
+ * from --reveal-delay (set per item by the reveal script); `!` keeps it from
+ * being reset by the `animation` shorthand of animate-reveal-item.
+ */
+const itemBase =
+  "opacity-0 data-revealed:animate-reveal-item data-revealed:opacity-100 data-revealed:[animation-delay:var(--reveal-delay,0ms)]!";
 
 export function RevealItem({ as: Tag = "div", className, children, ...props }: GroupProps) {
   return (
-    <Tag data-reveal-item="" className={cn(itemBase, className)} {...props}>
+    <Tag data-reveal-item="" suppressHydrationWarning className={cn(itemBase, className)} {...props}>
       {children}
     </Tag>
   );

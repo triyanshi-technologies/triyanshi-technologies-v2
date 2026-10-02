@@ -20,13 +20,18 @@ const OUT_DIR = path.join(PUBLIC_DIR, VARIANTS_DIR);
 const RASTER = /\.(png|jpe?g|webp)$/i;
 const QUALITY = 78;
 const CONCURRENCY = 8;
+/** Files served exactly as they are, never through next/image (e.g. the link-preview card). */
+const SERVED_AS_IS = new Set(["og-image.png"]);
 
 async function* walk(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       if (full !== OUT_DIR) yield* walk(full);
-    } else if (RASTER.test(entry.name)) {
+    } else if (
+      RASTER.test(entry.name) &&
+      !SERVED_AS_IS.has(path.relative(PUBLIC_DIR, full).split(path.sep).join("/"))
+    ) {
       yield full;
     }
   }
@@ -58,19 +63,19 @@ async function processImage(source) {
   return written;
 }
 
-/** Delete variants whose source image no longer exists. */
-async function removeOrphans(dir = OUT_DIR) {
+/** Delete variants whose source is no longer processed (deleted, renamed or served as-is). */
+async function removeOrphans(sourceBases, dir = OUT_DIR) {
   if (!existsSync(dir)) return 0;
   let removed = 0;
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      removed += await removeOrphans(full);
+      removed += await removeOrphans(sourceBases, full);
       if ((await readdir(full)).length === 0) await rm(full, { recursive: true });
       continue;
     }
     const base = path.join(PUBLIC_DIR, path.relative(OUT_DIR, full).replace(/-\d+\.webp$/, ""));
-    if (![".webp", ".png", ".jpg", ".jpeg"].some((ext) => existsSync(base + ext))) {
+    if (!sourceBases.has(base)) {
       await rm(full);
       removed++;
     }
@@ -88,7 +93,7 @@ for (let i = 0; i < sources.length; i += CONCURRENCY) {
   written += batch.reduce((sum, n) => sum + n, 0);
 }
 
-const removed = await removeOrphans();
+const removed = await removeOrphans(new Set(sources.map((file) => file.replace(RASTER, ""))));
 
 console.log(
   `[images] ${sources.length} sources, ${written} variants written, ${removed} orphans removed (${((Date.now() - started) / 1000).toFixed(1)}s)`,

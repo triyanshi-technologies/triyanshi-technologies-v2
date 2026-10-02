@@ -7,7 +7,8 @@ export const site = {
     "Triyanshi Technologies provides state-of-the-art IT solutions, delivering 250+ projects globally with 100% client satisfaction.",
   themeColor: "#121212",
   logo: "/assets/WhiteLogo.webp",
-  ogImage: "/assets/hero-banner.webp",
+  /** Link-preview image (og:image / twitter:image): logo card, 1200×630 PNG. */
+  ogImage: { url: "/og-image.png", width: 1200, height: 630, alt: "Triyanshi Technologies" },
   contact: {
     phone: "+91-9909761261",
     phoneHref: "tel:+919909761261",
