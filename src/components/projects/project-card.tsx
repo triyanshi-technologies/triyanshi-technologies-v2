@@ -29,7 +29,7 @@ export function ProjectCard({ project, expanded, onToggle, index = 0, sizes }: P
       style={{ animationDelay: `${index * 90}ms` } as CSSProperties}
       onKeyDown={(e) => e.key === "Escape" && expanded && onToggle()}
       className={cx(
-        `group/card relative min-h-85 w-full min-w-0 animate-card-up overflow-hidden rounded-xl border ${mediaCardHover}`,
+        `group/card relative min-h-65 w-full min-w-0 animate-card-up overflow-hidden rounded-xl border ${mediaCardHover}`,
         expanded ? "border-primary" : "border-transparent",
       )}
     >
