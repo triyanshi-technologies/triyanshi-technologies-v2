@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { site } from "./site";
 
+const deployHost =
+  process.env.VERCEL_ENV === "preview" ? process.env.VERCEL_URL : process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const assetOrigin = deployHost ? `https://${deployHost}` : site.url;
+
 type PageSeo = {
   /** Page title without the brand suffix, e.g. "Shopify Development". Omit for the homepage. */
   title?: string;
@@ -21,7 +25,9 @@ type PageSeo = {
 export function buildMetadata({ title, description, path, image, index = true }: PageSeo): Metadata {
   const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
   // Width/height/alt let WhatsApp, LinkedIn, etc. render the preview on the first share.
-  const ogImage = image ? { url: image, width: 1200, height: 630, alt: fullTitle } : site.ogImage;
+  const ogImage = image
+    ? { url: new URL(image, assetOrigin).href, width: 1200, height: 630, alt: fullTitle }
+    : { ...site.ogImage, url: new URL(site.ogImage.url, assetOrigin).href };
 
   return {
     title: { absolute: fullTitle },
