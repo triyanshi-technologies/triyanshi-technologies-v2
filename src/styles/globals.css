@@ -387,3 +387,30 @@
   color: var(--color-surface);
   --tone-body: var(--color-muted);
 }
+
+/*
+ * Hairline-divided grid cell whose dividers glow orange around the pointer.
+ * The cell's borders are transparent; its lines are painted by background
+ * layers clipped to the border box: grey base, then an orange radial
+ * spotlight. <GridSpotlight> sets --spot-x/--spot-y per cell (relative to
+ * the cell) and grows --spot-size while the pointer is over the grid.
+ */
+@property --spot-size {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@utility grid-spotlight {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+    radial-gradient(
+        circle var(--spot-size) at var(--spot-x, -100vmax) var(--spot-y, -100vmax),
+        var(--color-primary),
+        transparent
+      )
+      border-box border-box,
+    linear-gradient(var(--color-line), var(--color-line)) border-box;
+  transition: --spot-size 300ms ease-out;
+}
