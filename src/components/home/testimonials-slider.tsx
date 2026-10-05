@@ -124,7 +124,7 @@ export function TestimonialsSlider({
   return (
     <div
       ref={sectionRef}
-      className="mx-auto grid max-w-300 items-center gap-y-6 px-3.5 sm:px-5 lg:grid-cols-[1fr_0.95fr] lg:gap-x-11 lg:gap-y-6.5 xl:gap-x-16"
+      className="mx-auto grid w-full max-w-site items-center gap-y-6 px-4 lg:grid-cols-[1fr_0.95fr] lg:gap-x-11 lg:gap-y-6.5 xl:gap-x-16"
     >
       {/* Left: heading + card */}
       <div className="lg:col-start-1 lg:row-start-1">

@@ -3,12 +3,10 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Section, SectionTitle } from "@/components/ui/layout";
 import { getAppPartners } from "@/lib/home";
 import { cn } from "@/lib/cn";
-import { cardHover } from "@/lib/hover";
 import { CarouselNav } from "./carousel-nav";
 
 const GRID_ID = "apps-grid";
 
-/** "Our eCommerce App Partners": 4-column grid on desktop, swipeable carousel below 1024px (Sanity: Homepage → App partners). */
 export async function AppPartners() {
   const appPartners = await getAppPartners();
   if (!appPartners.length) return null;
@@ -17,8 +15,8 @@ export async function AppPartners() {
     <Section id="apps" tone="light" aria-labelledby="apps-heading">
       <Reveal>
         <SectionTitle
-          eyebrow="Our Affiliates"
-          title={<span id="apps-heading">Our eCommerce App Partners</span>}
+          eyebrow="Our Values Partnerships"
+          title={<span id="apps-heading">Trusted Collaborations That Drive Success</span>}
           description="Apps from our trusted partners, which we recommend and integrate to help your store grow."
           className="[&_p]:text-base"
         />
@@ -27,15 +25,25 @@ export async function AppPartners() {
       <RevealGroup
         as="ul"
         id={GRID_ID}
-        className="-mx-4 -mt-3 -mb-10 flex snap-x snap-mandatory scroll-px-4 [scrollbar-width:none] gap-4 overflow-x-auto overscroll-x-contain px-4 pt-3 pb-10 lg:grid lg:grid-cols-4 lg:overflow-visible [&::-webkit-scrollbar]:hidden"
+        className={cn(
+          "-mx-4 flex snap-x snap-mandatory scroll-px-4 [scrollbar-width:none] overflow-x-auto overscroll-x-contain px-4 [&::-webkit-scrollbar]:hidden",
+          // Desktop: open grid divided by hairlines; an overlay in the section's
+          // background fades the lines out towards the grid's outer edges.
+          "lg:relative lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0",
+          "lg:after:pointer-events-none lg:after:absolute lg:after:inset-0 lg:after:content-['']",
+          "lg:after:bg-[linear-gradient(to_bottom,var(--color-surface),transparent_2.5rem,transparent_calc(100%-2.5rem),var(--color-surface)),linear-gradient(to_right,var(--color-surface),transparent_2.5rem,transparent_calc(100%-2.5rem),var(--color-surface))]",
+        )}
       >
         {appPartners.map((app) => (
           <RevealItem
             as="li"
             key={app.id}
             className={cn(
-              "grid min-h-50 shrink-0 basis-[85%] snap-start content-between gap-4 rounded-xl border border-line bg-white p-5 sm:basis-[calc((100%-1rem)/2.3)] lg:min-h-0",
-              cardHover,
+              "relative grid shrink-0 basis-[85%] snap-start content-start gap-4 px-6 py-8 sm:basis-[calc(100%/2.3)]",
+              // Mobile carousel: a fading vertical divider between slides.
+              "max-lg:before:absolute max-lg:before:inset-y-0 max-lg:before:right-0 max-lg:before:w-px max-lg:before:bg-linear-to-b max-lg:before:from-transparent max-lg:before:via-line max-lg:before:to-transparent max-lg:before:content-[''] max-lg:last:before:hidden",
+              // Desktop grid: dividers between columns and rows only.
+              "lg:border-r lg:border-b lg:border-line lg:p-10 lg:nth-[4n]:border-r-0 lg:nth-last-[-n+4]:border-b-0",
             )}
           >
             <div className="flex min-w-0 items-center gap-3.5">

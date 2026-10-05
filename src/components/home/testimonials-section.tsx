@@ -1,4 +1,4 @@
-import { Eyebrow, Highlight } from "@/components/ui/layout";
+import { Eyebrow, Highlight, Section } from "@/components/ui/layout";
 import { getTestimonials } from "@/lib/home";
 import { TestimonialsSlider } from "./testimonials-slider";
 
@@ -8,7 +8,7 @@ export async function TestimonialsSection() {
   if (!testimonials.length) return null;
 
   return (
-    <section id="tt-review" className="overflow-hidden bg-surface py-12.5 sm:py-15 lg:py-22.5">
+    <Section id="tt-review" tone="light" contained={false} className="overflow-hidden">
       <TestimonialsSlider
         testimonials={testimonials}
         intro={
@@ -24,6 +24,6 @@ export async function TestimonialsSection() {
           </>
         }
       />
-    </section>
+    </Section>
   );
 }
