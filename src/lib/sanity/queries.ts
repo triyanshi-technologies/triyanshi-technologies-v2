@@ -32,8 +32,7 @@ export const HOME_QUERY = /* groq */ `{
   },
   "testimonials": *[_id == "home-testimonials"][0].items[]{
     _key, name, role, avatarColor, rating, quote, companyName, platform, highlightBadge, badges,
-    companyLogo${IMAGE},
-    screenshot${IMAGE}
+    companyLogo${IMAGE}
   },
   "appPartners": *[_id == "home-app-partners"][0].items[]{
     _key, name, category, description, logo${IMAGE}
@@ -85,7 +84,6 @@ export type SanityTestimonial = {
   quote: string;
   companyName: string;
   companyLogo: SanityImage | null;
-  screenshot: SanityImage | null;
   platform?: "shopify" | "bigcommerce" | "volusion" | null;
   highlightBadge?: string | null;
   badges?: string[] | null;

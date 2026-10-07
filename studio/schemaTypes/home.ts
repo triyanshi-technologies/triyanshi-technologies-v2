@@ -165,15 +165,6 @@ export const homeTestimonials = defineType({
               validation: (rule) => rule.required(),
             }),
             defineField({
-              name: "screenshot",
-              title: "Website screenshot",
-              type: "image",
-              group: "company",
-              description:
-                "Shown on the laptop screen. Homepage screenshot at about 1904 × 945 px (it is stretched to that ratio).",
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
               name: "platform",
               title: "Platform",
               type: "string",

@@ -24,7 +24,6 @@ export type Testimonial = {
   rating: number;
   quote: string;
   company: { name: string; logo: ProjectImage };
-  screenshot: ProjectImage;
   platform?: TestimonialPlatform;
   /** `emphasis` renders the badge in bold black (legacy "Custom" badge). */
   badges: { label: string; emphasis?: boolean }[];

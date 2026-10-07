@@ -29,8 +29,7 @@ function toBrandLogo(doc: SanityBrandLogo): BrandLogo | undefined {
 
 function toTestimonial(doc: SanityTestimonial): Testimonial | undefined {
   const logo = toImage(doc.companyLogo, doc.companyName);
-  const screenshot = toImage(doc.screenshot, `${doc.companyName} website preview`);
-  if (!logo || !screenshot) return undefined;
+  if (!logo) return undefined;
   return {
     id: doc._key,
     name: doc.name,
@@ -39,7 +38,6 @@ function toTestimonial(doc: SanityTestimonial): Testimonial | undefined {
     rating: doc.rating,
     quote: doc.quote,
     company: { name: doc.companyName, logo },
-    screenshot,
     platform: doc.platform ?? undefined,
     badges: [
       ...(doc.highlightBadge ? [{ label: doc.highlightBadge, emphasis: true }] : []),
